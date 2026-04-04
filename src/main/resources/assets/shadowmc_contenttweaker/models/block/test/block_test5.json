@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top":   "shocraftmod:blocks/test/block_test5/block_test5_top",
+    "front": "shocraftmod:blocks/test/block_test5/block_test5_front",
+    "side":  "shocraftmod:blocks/test/block_test5/block_test5_side"
+  }
+}

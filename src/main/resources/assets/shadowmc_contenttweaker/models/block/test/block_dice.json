@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "shocraftmod:blocks/test/dice/block_dice5",
+    "down": "shocraftmod:blocks/test/dice/block_dice2",
+    "up": "shocraftmod:blocks/test/dice/block_dice4",
+    "north": "shocraftmod:blocks/test/dice/block_dice1",
+    "south": "shocraftmod:blocks/test/dice/block_dice6",
+    "west": "shocraftmod:blocks/test/dice/block_dice5",
+    "east": "shocraftmod:blocks/test/dice/block_dice3"
+  }
+}

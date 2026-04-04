@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "side": "shocraftmod:blocks/test/block_test4/block_test4_side",
+    "end":  "shocraftmod:blocks/test/block_test4/block_test4_top"
+  }
+}
