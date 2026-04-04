@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Specification-Title: shadowmc_contenttweaker
+Specification-Vendor: SHO8814
+Specification-Version: 1
+Implementation-Title: shadowmc-contenttweaker
+Implementation-Version: 1.0.0
+Implementation-Vendor: SHO8814
+Implementation-Timestamp: 2026-02-19T22:07:20+0100
+MixinConfigs: shadowmc_contenttweaker.mixins.json
+

@@ -1,0 +1,18 @@
+{
+  "creative_tab.shadowmc_contenttweaker": "ShadowMC - ContentTweaker",
+
+  // Items
+  "item.shadowmc_contenttweaker.item_test0": "Item Test 0",
+  "item.shadowmc_contenttweaker.item_test1": "Item Test 1",
+  "item.shadowmc_contenttweaker.item_test2": "Item Test 2",
+  "item.shadowmc_contenttweaker.item_test3": "Item Test 3",
+
+  // Blocks
+
+  // Lore
+  "item.shadowmc_contenttweaker.item_test1.line1": "Line 1",
+  "item.shadowmc_contenttweaker.item_test1.line2": "Line 2",
+
+  "item.shadowmc_contenttweaker.item_test2.line1": "Line 1",
+  "item.shadowmc_contenttweaker.item_test2.line2": "Line 2"
+}
