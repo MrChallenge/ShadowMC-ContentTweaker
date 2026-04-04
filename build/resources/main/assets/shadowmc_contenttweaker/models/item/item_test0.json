@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "shadowmc_contenttweaker:item/item_test0"
+    "layer0": "shadowmc_contenttweaker:item/test/item_test0"
   }
 }
