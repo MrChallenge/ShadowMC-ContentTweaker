@@ -14,13 +14,12 @@ import java.util.List;
 public class ItemTest2 extends Item {
     public ItemTest2() {
         super(new Item.Properties().food(new FoodProperties.Builder()
-                .nutrition(5) // сколько голода восстанавливает
-                .saturationMod(0.6f) // насыщение (множитель)
-                .meat() // едят волки
-                .fast() // х2 быстрее съедается
-                .alwaysEat() // можно всегда съесть
+                .nutrition(5)
+                .saturationMod(0.6f)
+                .meat()
+                .fast()
+                .alwaysEat()
                 .effect(new MobEffectInstance(MobEffects.DARKNESS, 20, 0 ), 0.5F)
-                        // тики | уровень | шанс получения 0.01F(1%) - 1F(100%)
                 .build()));
     }
 
