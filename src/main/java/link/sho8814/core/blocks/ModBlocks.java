@@ -15,6 +15,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> BLOCK_TEST1 = BLOCKS.register("test/block_test1", BlockTest1::new);
     public static final RegistryObject<Block> BLOCK_TEST2 = BLOCKS.register("test/block_test2", BlockTest2::new);
     public static final RegistryObject<Block> BLOCK_TEST3 = BLOCKS.register("test/block_test3", BlockTest3::new);
+    public static final RegistryObject<Block> BLOCK_TEST4 = BLOCKS.register("test/block_test4", BlockTest4::new);
+    public static final RegistryObject<Block> BLOCK_TEST5 = BLOCKS.register("test/block_test5", BlockTest5::new);
+    public static final RegistryObject<Block> BLOCK_TEST6 = BLOCKS.register("test/block_test6", BlockTest6::new);
+    public static final RegistryObject<Block> DICE_BLOCK = BLOCKS.register("test/dice_block", DiceBlock::new);
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

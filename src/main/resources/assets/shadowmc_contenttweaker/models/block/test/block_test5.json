@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "shadowmc_contenttweaker:block/test/block_test5/block_test5_front",
+    "side": "shadowmc_contenttweaker:block/test/block_test5/block_test5_side",
+    "top": "shadowmc_contenttweaker:block/test/block_test5/block_test5_top"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "shadowmc_contenttweaker:block/test/block_test5"
+    },
+    "facing=south": {
+      "model": "shadowmc_contenttweaker:block/test/block_test5",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "shadowmc_contenttweaker:block/test/block_test5",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "shadowmc_contenttweaker:block/test/block_test5",
+      "y": 90
+    }
+  }
+}

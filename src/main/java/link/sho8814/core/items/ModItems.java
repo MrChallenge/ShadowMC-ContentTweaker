@@ -32,6 +32,18 @@ public class ModItems {
     public static final RegistryObject<Item> BLOCK_TEST3 = ITEMS.register("test/block_test3",
             () -> new BlockItem(ModBlocks.BLOCK_TEST3.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> BLOCK_TEST4 = ITEMS.register("test/block_test4",
+            () -> new BlockItem(ModBlocks.BLOCK_TEST4.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> BLOCK_TEST5 = ITEMS.register("test/block_test5",
+            () -> new BlockItem(ModBlocks.BLOCK_TEST5.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> BLOCK_TEST6 = ITEMS.register("test/block_test6",
+            () -> new BlockItem(ModBlocks.BLOCK_TEST6.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> DICE_BLOCK = ITEMS.register("test/dice_block",
+            () -> new BlockItem(ModBlocks.DICE_BLOCK.get(), new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

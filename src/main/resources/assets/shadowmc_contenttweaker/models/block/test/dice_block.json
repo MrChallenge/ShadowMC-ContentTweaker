@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "up": "shadowmc_contenttweaker:block/test/dice/block_dice1",
+    "down": "shadowmc_contenttweaker:block/test/dice/block_dice6",
+    "north": "shadowmc_contenttweaker:block/test/dice/block_dice2",
+    "east": "shadowmc_contenttweaker:block/test/dice/block_dice4",
+    "south": "shadowmc_contenttweaker:block/test/dice/block_dice5",
+    "west": "shadowmc_contenttweaker:block/test/dice/block_dice3"
+  }
+}
