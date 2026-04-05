@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "shadowmc_contenttweaker:test/block_test1",
+    "shadowmc_contenttweaker:test/block_test2"
+  ]
+}
