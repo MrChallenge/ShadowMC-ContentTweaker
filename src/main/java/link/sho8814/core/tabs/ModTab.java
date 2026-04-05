@@ -1,5 +1,6 @@
 package link.sho8814.core.tabs;
 
+import link.sho8814.core.blocks.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -18,7 +19,7 @@ public class ModTab extends CreativeModeTab {
         super(builder);
     }
 
-    private static final Set<String> EXCEPTED_ITEMS = Set.of(
+    private static final Set<String> EXCEPTED_LIST = Set.of(
             "null" // исключения (столбиком)
     );
 
@@ -26,14 +27,14 @@ public class ModTab extends CreativeModeTab {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ShadowMC_ContentTweaker.MODID);
 
     public static final RegistryObject<CreativeModeTab> CONTENTTWEAKER_TAB = CREATIVE_MODE_TABS.register("contenttweaker_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.ITEM_TEST0.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.BLOCK_TEST1.get()))
                     .title(Component.translatable("creative_tab.shadowmc_contenttweaker"))
                     .displayItems((pParameters, pOutput) -> {
 
                         ModItems.ITEMS.getEntries().forEach(item -> {
                             String name = item.getId().getPath();
 
-                            if (!EXCEPTED_ITEMS.contains(name)) {
+                            if (!EXCEPTED_LIST.contains(name)) {
                                 pOutput.accept(item.get());
                             }
                         });
