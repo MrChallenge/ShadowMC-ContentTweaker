@@ -1,13 +1,13 @@
-# Gradle
-.gradle/
-build/
-
-# IntelliJ
-.idea/
+# idea
+out
+*.ipr
+*.iws
 *.iml
+.idea
 
-# Logs
-logs/
+# gradle
+build
+.gradle
 
-# OS
-.DS_Store
+# other
+run

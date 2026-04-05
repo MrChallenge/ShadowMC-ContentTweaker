@@ -26,9 +26,7 @@ public class ShadowMC_ContentTweaker {
         modEventBus.addListener(this::commonSetup);
 
         ModItems.register(modEventBus);
-
         ModBlocks.register(modEventBus);
-
         ModTab.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
