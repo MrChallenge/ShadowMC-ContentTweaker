@@ -27,7 +27,7 @@ public class ModTab extends CreativeModeTab {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ShadowMC_ContentTweaker.MODID);
 
     public static final RegistryObject<CreativeModeTab> CONTENTTWEAKER_TAB = CREATIVE_MODE_TABS.register("contenttweaker_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.BLOCK_TEST1.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.DICE_BLOCK.get()))
                     .title(Component.translatable("creative_tab.shadowmc_contenttweaker"))
                     .displayItems((pParameters, pOutput) -> {
 

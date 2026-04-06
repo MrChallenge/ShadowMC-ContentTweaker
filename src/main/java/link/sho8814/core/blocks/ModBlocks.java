@@ -19,6 +19,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> BLOCK_TEST5 = BLOCKS.register("test/block_test5", BlockTest5::new);
     public static final RegistryObject<Block> BLOCK_TEST6 = BLOCKS.register("test/block_test6", BlockTest6::new);
     public static final RegistryObject<Block> DICE_BLOCK = BLOCKS.register("test/dice_block", DiceBlock::new);
+    public static final RegistryObject<Block> MODEL_TEST1 = BLOCKS.register("test/model_test1", ModelTest1::new);
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
