@@ -35,7 +35,8 @@ public class DiceBlock extends Block {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         RandomSource random = context.getLevel().getRandom();
 
-        Direction facing = Direction.values()[random.nextInt(Direction.values().length)];
+        Direction facing = Direction.values()[random.nextInt(6)];
+
         int rotation = random.nextInt(4);
 
         return this.defaultBlockState()

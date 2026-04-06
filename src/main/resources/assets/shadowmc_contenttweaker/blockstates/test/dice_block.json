@@ -1,118 +1,99 @@
 {
   "variants": {
     "facing=up,rotation=0": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block"
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block1"
     },
     "facing=up,rotation=1": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block1",
       "y": 90
     },
     "facing=up,rotation=2": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block1",
       "y": 180
     },
     "facing=up,rotation=3": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block1",
       "y": 270
     },
 
     "facing=down,rotation=0": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 180
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block6"
     },
     "facing=down,rotation=1": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 180,
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block6",
       "y": 90
     },
     "facing=down,rotation=2": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 180,
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block6",
       "y": 180
     },
     "facing=down,rotation=3": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 180,
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block6",
       "y": 270
     },
 
     "facing=north,rotation=0": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block2"
     },
     "facing=north,rotation=1": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block2",
       "y": 90
     },
     "facing=north,rotation=2": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block2",
       "y": 180
     },
     "facing=north,rotation=3": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block2",
       "y": 270
     },
 
     "facing=south,rotation=0": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
-      "y": 180
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block5"
     },
     "facing=south,rotation=1": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
-      "y": 270
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block5",
+      "y": 90
     },
     "facing=south,rotation=2": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block5",
+      "y": 180
     },
     "facing=south,rotation=3": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
-      "y": 90
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block5",
+      "y": 270
     },
 
     "facing=west,rotation=0": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
-      "y": 270
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block3"
     },
     "facing=west,rotation=1": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90
-    },
-    "facing=west,rotation=2": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block3",
       "y": 90
     },
-    "facing=west,rotation=3": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
+    "facing=west,rotation=2": {
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block3",
       "y": 180
+    },
+    "facing=west,rotation=3": {
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block3",
+      "y": 270
     },
 
     "facing=east,rotation=0": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
-      "y": 90
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block4"
     },
     "facing=east,rotation=1": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
-      "y": 180},
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block4",
+      "y": 90
+    },
     "facing=east,rotation=2": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90,
-      "y": 270
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block4",
+      "y": 180
     },
     "facing=east,rotation=3": {
-      "model": "shadowmc_contenttweaker:block/test/dice_block",
-      "x": 90
+      "model": "shadowmc_contenttweaker:block/test/dice_block/dice_block4",
+      "y": 270
     }
   }
 }
