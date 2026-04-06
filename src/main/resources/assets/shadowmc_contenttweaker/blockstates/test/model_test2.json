@@ -1,0 +1,15 @@
+{
+  "variants": {
+
+    "facing=north,half=lower": { "model": "shadowmc_contenttweaker:block/test/model_test2" },
+    "facing=south,half=lower": { "model": "shadowmc_contenttweaker:block/test/model_test2", "y": 180 },
+    "facing=west,half=lower":  { "model": "shadowmc_contenttweaker:block/test/model_test2", "y": 270 },
+    "facing=east,half=lower":  { "model": "shadowmc_contenttweaker:block/test/model_test2", "y": 90 },
+
+    "facing=north,half=upper": { "model": "minecraft:block/air" },
+    "facing=south,half=upper": { "model": "minecraft:block/air" },
+    "facing=west,half=upper":  { "model": "minecraft:block/air" },
+    "facing=east,half=upper":  { "model": "minecraft:block/air" }
+
+  }
+}

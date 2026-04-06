@@ -47,6 +47,9 @@ public class ModItems {
     public static final RegistryObject<Item> MODEL_TEST1 = ITEMS.register("test/model_test1",
             () -> new BlockItem(ModBlocks.MODEL_TEST1.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> MODEL_TEST2 = ITEMS.register("test/model_test2",
+            () -> new BlockItem(ModBlocks.MODEL_TEST2.get(), new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
