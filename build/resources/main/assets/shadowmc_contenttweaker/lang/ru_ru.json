@@ -16,10 +16,10 @@
   "block.shadowmc_contenttweaker.test.block_test5": "Тестовый блок 5",
   "block.shadowmc_contenttweaker.test.block_test6": "Тестовый блок 6",
 
-  "block.shadowmc_contenttweaker.test.model_test1": "тестовая модель 1",
-  "block.shadowmc_contenttweaker.test.model_test2": "тестовая модель 2",
+  "block.shadowmc_contenttweaker.test.model_test1": "Тестовая модель 1",
+  "block.shadowmc_contenttweaker.test.model_test2": "Тестовая модель 2",
 
-  "block.shadowmc_contenttweaker.test.dice_block": "Игральный блок",
+  "block.shadowmc_contenttweaker.test.dice_block": "Блок игральная кость",
 
   // Tooltips
   "item.shadowmc_contenttweaker.item_test1.line1": "<line 1>",
