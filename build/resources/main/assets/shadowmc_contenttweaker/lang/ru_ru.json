@@ -1,1 +1,34 @@
-{}
+{
+  "creative_tab.shadowmc_contenttweaker": "ShadowMC - ContentTweaker",
+
+  // Items
+  "item.shadowmc_contenttweaker.test.item_test0": "Item Test 0",
+  "item.shadowmc_contenttweaker.test.item_test1": "Item Test 1",
+  "item.shadowmc_contenttweaker.test.item_test2": "Item Test 2",
+  "item.shadowmc_contenttweaker.test.item_test3": "Item Test 3",
+
+  // Blocks
+  "block.shadowmc_contenttweaker.test.block_test0": "Тестовый блок 0",
+  "block.shadowmc_contenttweaker.test.block_test1": "Тестовый блок 1",
+  "block.shadowmc_contenttweaker.test.block_test2": "Тестовый блок 2",
+  "block.shadowmc_contenttweaker.test.block_test3": "Тестовый блок 3",
+  "block.shadowmc_contenttweaker.test.block_test4": "Тестовый блок 4",
+  "block.shadowmc_contenttweaker.test.block_test5": "Тестовый блок 5",
+  "block.shadowmc_contenttweaker.test.block_test6": "Тестовый блок 6",
+
+  "block.shadowmc_contenttweaker.test.model_test1": "тестовая модель 1",
+  "block.shadowmc_contenttweaker.test.model_test2": "тестовая модель 2",
+
+  "block.shadowmc_contenttweaker.test.dice_block": "Игральный блок",
+
+  // Tooltips
+  "item.shadowmc_contenttweaker.item_test1.line1": "<line 1>",
+  "item.shadowmc_contenttweaker.item_test1.line2": "<line 2>",
+
+  "item.shadowmc_contenttweaker.dice_block.tooltip": "Рандомизированные стороны! (╯‵□′)╯︵┻━┻",
+
+  "item.shadowmc_contenttweaker.model_test2.tooltip": "Как варить гречку:\n1. Переберите гречку (при необходимости) и промойте её холодной водой несколько раз, пока она не станет прозрачной.\n2. Всыпьте крупу в кастрюлю (лучше с толстым дном) и залейте водой в соотношении 1:2.\n3. Посолите по вкусу. Доведите до кипения на сильном огне, затем убавьте огонь до минимума, накройте крышкой и варите 15–20 минут.\n4. В течение варки не перемешивайте крупу. Как только вода впитается, снимите с огня, добавьте сливочное масло и дайте постоять под крышкой еще 5–10 минут.",
+
+  // Utils
+  "util.shadowmc_contenttweaker.tooltip.press_shift": "Зажмите Shift"
+}
