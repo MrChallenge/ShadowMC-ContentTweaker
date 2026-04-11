@@ -1,15 +1,32 @@
 {
   "variants": {
+    "facing=north,half=lower": {
+      "model": "shadowmc_contenttweaker:block/test/model_test2_lower"
+    },
+    "facing=south,half=lower": {
+      "model": "shadowmc_contenttweaker:block/test/model_test2_lower",
+      "y": 180
+    },
+    "facing=west,half=lower": {
+      "model": "shadowmc_contenttweaker:block/test/model_test2_lower",
+      "y": 270
+    },
+    "facing=east,half=lower": {
+      "model": "shadowmc_contenttweaker:block/test/model_test2_lower",
+      "y": 90
+    },
 
-    "facing=north,half=lower": { "model": "shadowmc_contenttweaker:block/test/model_test2" },
-    "facing=south,half=lower": { "model": "shadowmc_contenttweaker:block/test/model_test2", "y": 180 },
-    "facing=west,half=lower":  { "model": "shadowmc_contenttweaker:block/test/model_test2", "y": 270 },
-    "facing=east,half=lower":  { "model": "shadowmc_contenttweaker:block/test/model_test2", "y": 90 },
-
-    "facing=north,half=upper": { "model": "minecraft:block/air" },
-    "facing=south,half=upper": { "model": "minecraft:block/air" },
-    "facing=west,half=upper":  { "model": "minecraft:block/air" },
-    "facing=east,half=upper":  { "model": "minecraft:block/air" }
-
+    "facing=north,half=upper": {
+      "model": "shadowmc_contenttweaker:block/test/model_test2_upper"
+    },
+    "facing=south,half=upper": {
+      "model": "shadowmc_contenttweaker:block/test/model_test2_upper"
+    },
+    "facing=west,half=upper": {
+      "model": "shadowmc_contenttweaker:block/test/model_test2_upper"
+    },
+    "facing=east,half=upper": {
+      "model": "shadowmc_contenttweaker:block/test/model_test2_upper"
+    }
   }
 }

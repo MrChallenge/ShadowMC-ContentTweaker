@@ -1,0 +1,6 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "shadowmc_contenttweaker:block/test/model_test2"
+  }
+}

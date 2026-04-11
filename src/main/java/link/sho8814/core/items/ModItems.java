@@ -50,6 +50,9 @@ public class ModItems {
     public static final RegistryObject<Item> MODEL_TEST2 = ITEMS.register("test/model_test2",
             () -> new BlockItemModelTest2(ModBlocks.MODEL_TEST2.get()));
 
+    public static final RegistryObject<Item> BLOCK_BILLBOARD = ITEMS.register("test/block_billboard",
+            ()  -> new BlockItem(ModBlocks.BLOCK_BILLBOARD.get(), new Item.Properties()));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

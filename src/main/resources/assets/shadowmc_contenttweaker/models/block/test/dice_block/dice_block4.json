@@ -6,6 +6,7 @@
     "north": "shadowmc_contenttweaker:block/test/dice_block/dice_block1",
     "south": "shadowmc_contenttweaker:block/test/dice_block/dice_block6",
     "west": "shadowmc_contenttweaker:block/test/dice_block/dice_block2",
-    "east": "shadowmc_contenttweaker:block/test/dice_block/dice_block5"
+    "east": "shadowmc_contenttweaker:block/test/dice_block/dice_block5",
+    "particle": "shadowmc_contenttweaker:block/test/dice_block/dice_block4"
   }
 }

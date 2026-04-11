@@ -1,5 +1,5 @@
 {
-  "parent": "shadowmc_contenttweaker:block/test/model_test2",
+  "parent": "shadowmc_contenttweaker:block/test/model_test2_lower",
   "display": {
     "thirdperson_righthand": {
       "rotation": [60, 45, 0],

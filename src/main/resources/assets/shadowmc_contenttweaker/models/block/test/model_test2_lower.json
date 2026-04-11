@@ -5,6 +5,7 @@
 		"0": "shadowmc_contenttweaker:block/test/model_test2",
 		"particle": "shadowmc_contenttweaker:block/test/model_test2"
 	},
+  "ambientocclusion": false,
 	"elements": [
 		{
 			"name": "cube1",
