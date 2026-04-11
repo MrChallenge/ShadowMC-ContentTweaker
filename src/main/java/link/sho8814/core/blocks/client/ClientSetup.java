@@ -16,9 +16,11 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-        BlockEntityRenderers.register(
-                ModBlocksEntities.ENTITY_BILLBOARD.get(),
-                BlockBillboardRenderer::new
-        );
+        event.enqueueWork(() -> {
+            BlockEntityRenderers.register(
+                    ModBlocksEntities.ENTITY_BILLBOARD.get(),
+                    BlockBillboardRenderer::new
+            );
+        });
     }
 }

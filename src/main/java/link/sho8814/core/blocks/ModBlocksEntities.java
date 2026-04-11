@@ -15,6 +15,7 @@ public class ModBlocksEntities {
             BLOCK_ENTITIES.register("block_billboard",
                     () -> BlockEntityType.Builder.of(
                             BlockBillboardEntity::new,
-                            ModBlocks.BLOCK_BILLBOARD.get()
-                    ).build());
+                            ModBlocks.BLOCK_BILLBOARD.get())
+                                .build(null)
+            );
 }

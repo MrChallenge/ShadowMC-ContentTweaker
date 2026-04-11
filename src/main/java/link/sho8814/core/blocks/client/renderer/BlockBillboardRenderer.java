@@ -9,6 +9,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -43,18 +45,49 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
         float scale = getTextureScale();
         poseStack.scale(scale, scale, scale);
 
-        VertexConsumer vc = buffer.getBuffer(RenderType.entityCutout(TEXTURE_BILLBOARD));
+        TextureAtlasSprite sprite = Minecraft.getInstance()
+                .getTextureAtlas(TextureAtlas.LOCATION_BLOCKS)
+                .apply(TEXTURE_BILLBOARD);
+
+        VertexConsumer vc = buffer.getBuffer(RenderType.cutout());
         Matrix4f matrix = poseStack.last().pose();
 
-        vc.vertex(matrix, -0.5f, -0.5f, 0).uv(0, 1).endVertex();
-        vc.vertex(matrix, 0.5f, -0.5f, 0).uv(1, 1).endVertex();
-        vc.vertex(matrix, 0.5f, 0.5f, 0).uv(1, 0).endVertex();
-        vc.vertex(matrix, -0.5f, 0.5f, 0).uv(0, 0).endVertex();
+        vc.vertex(matrix, -0.5f, -0.5f, 0.0f)
+                .color(255, 255, 255, 255)
+                .uv(sprite.getU0(), sprite.getV1())
+                .overlayCoords(packedOverlay)
+                .uv2(packedLight)
+                .normal(0, 0, 1)
+                .endVertex();
+
+        vc.vertex(matrix, 0.5f, -0.5f, 0.0f)
+                .color(255, 255, 255, 255)
+                .uv(sprite.getU1(), sprite.getV1())
+                .overlayCoords(packedOverlay)
+                .uv2(packedLight)
+                .normal(0, 0, 1)
+                .endVertex();
+
+        vc.vertex(matrix, 0.5f, 0.5f, 0.0f)
+                .color(255, 255, 255, 255)
+                .uv(sprite.getU1(), sprite.getV0())
+                .overlayCoords(packedOverlay)
+                .uv2(packedLight)
+                .normal(0, 0, 1)
+                .endVertex();
+
+        vc.vertex(matrix, -0.5f, 0.5f, 0.0f)
+                .color(255, 255, 255, 255)
+                .uv(sprite.getU0(), sprite.getV0())
+                .overlayCoords(packedOverlay)
+                .uv2(packedLight)
+                .normal(0, 0, 1)
+                .endVertex();
 
         poseStack.popPose();
     }
 
     private float getTextureScale() {
-        return 1.0f;
+        return 4.0f;
     }
 }

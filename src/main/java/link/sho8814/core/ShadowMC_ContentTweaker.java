@@ -1,6 +1,7 @@
 package link.sho8814.core;
 
 import link.sho8814.core.blocks.ModBlocks;
+import link.sho8814.core.blocks.ModBlocksEntities;
 import link.sho8814.core.items.ModItems;
 import link.sho8814.core.tabs.ModTab;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,6 +29,8 @@ public class ShadowMC_ContentTweaker {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModTab.register(modEventBus);
+
+        ModBlocksEntities.BLOCK_ENTITIES.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
 
