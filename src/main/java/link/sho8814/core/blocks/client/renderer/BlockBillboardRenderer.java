@@ -25,7 +25,7 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
     public static float previewScale = 1.0f;
     public static float previewOffsetX = 0.0f;
     public static float previewOffsetY = 0.0f;
-    public static float previewOffsetZ = 0.0f;
+    //public static float previewOffsetZ = 0.0f;
 
     @Override
     public void render(BlockBillboardEntity entity,
@@ -42,7 +42,6 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
         poseStack.translate(0.5, 0.5, 0.5);
 
         poseStack.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
-
         poseStack.mulPose(Axis.YP.rotationDegrees(180));
 
         //System.out.println("RENDER SCALE: " + entity.getScale());
@@ -52,7 +51,7 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
 
         float offsetX = previewEnabled ? previewOffsetX : entity.getOffsetX();
         float offsetY = previewEnabled ? previewOffsetY : entity.getOffsetY();
-        float offsetZ = previewEnabled ? previewOffsetZ : entity.getOffsetZ();
+        //float offsetZ = previewEnabled ? previewOffsetZ : entity.getOffsetZ();
 
         poseStack.translate(offsetX, offsetY, entity.getOffsetZ());
 

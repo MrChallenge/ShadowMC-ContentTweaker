@@ -13,14 +13,14 @@ public class BlockBillboardUpdatePacket {
     private final float scale;
     private final float offsetX;
     private final float offsetY;
-    private final float offsetZ;
+    //private final float offsetZ;
 
-    public BlockBillboardUpdatePacket(BlockPos pos, float scale, float offsetX, float offsetY, float offsetZ) {
+    public BlockBillboardUpdatePacket(BlockPos pos, float scale, float offsetX, float offsetY/*, float offsetZ*/) {
         this.pos = pos;
         this.scale = scale;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
-        this.offsetZ = offsetZ;
+        //this.offsetZ = offsetZ;
     }
 
     public static void encode(BlockBillboardUpdatePacket msg, FriendlyByteBuf buf) {
@@ -28,7 +28,7 @@ public class BlockBillboardUpdatePacket {
         buf.writeFloat(msg.scale);
         buf.writeFloat(msg.offsetX);
         buf.writeFloat(msg.offsetY);
-        buf.writeFloat(msg.offsetZ);
+        //buf.writeFloat(msg.offsetZ);
     }
 
     public static BlockBillboardUpdatePacket decode(FriendlyByteBuf buf) {
@@ -36,7 +36,7 @@ public class BlockBillboardUpdatePacket {
                 buf.readBlockPos(),
                 buf.readFloat(),
                 buf.readFloat(),
-                buf.readFloat(),
+                //buf.readFloat(),
                 buf.readFloat()
         );
     }
@@ -53,7 +53,7 @@ public class BlockBillboardUpdatePacket {
                 be.setScale(msg.scale);
                 be.setOffsetX(msg.offsetX);
                 be.setOffsetY(msg.offsetY);
-                be.setOffsetZ(msg.offsetZ);
+                //be.setOffsetZ(msg.offsetZ);
                 be.setChanged();
                 level.sendBlockUpdated(msg.pos, level.getBlockState(msg.pos), level.getBlockState(msg.pos), 3);
             }

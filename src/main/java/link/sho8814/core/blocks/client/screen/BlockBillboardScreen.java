@@ -19,10 +19,10 @@ public class BlockBillboardScreen extends Screen {
     private float scale = 1.0f;
     private float offsetX = 0.0f;
     private float offsetY = 0.0f;
-    private float offsetZ = 0.0f;
+    //private float offsetZ = 0.0f;
 
     public BlockBillboardScreen(BlockPos pos) {
-        super(Component.translatable("Billboard Settings"));
+        super(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.namespace"));
         this.pos = pos;
 
         this.entity = (BlockBillboardEntity) Minecraft.getInstance().level.getBlockEntity(pos);
@@ -31,7 +31,7 @@ public class BlockBillboardScreen extends Screen {
             this.scale = entity.getScale();
             this.offsetX = entity.getOffsetX();
             this.offsetY = entity.getOffsetY();
-            this.offsetZ = entity.getOffsetZ();
+            //this.offsetZ = entity.getOffsetZ();
         }
     }
 
@@ -73,7 +73,7 @@ public class BlockBillboardScreen extends Screen {
             offsetY -= 0.25f;
             updatePreview();
         }).bounds(width / 2 + 5, height / 2 - 80, 100, 20).build());
-
+/*
         // OFFSET Z +
         addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetZ+"), b -> {
             offsetZ += 0.25f;
@@ -85,14 +85,14 @@ public class BlockBillboardScreen extends Screen {
             offsetZ -= 0.25f;
             updatePreview();
         }).bounds(width / 2 + 5, height / 2 - 55, 100, 20).build());
-
+*/
         // APPLY
         addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.done"), b -> {
             sendToServer();
 
             BlockBillboardRenderer.previewEnabled = false;
 
-        }).bounds(width / 2 - 50, height / 2 - 15, 100, 20).build());
+        }).bounds(width / 2 - 50, height / 2 - 55, 100, 20).build());
     }
 
     private void updatePreview() {
@@ -100,12 +100,12 @@ public class BlockBillboardScreen extends Screen {
         BlockBillboardRenderer.previewScale = scale;
         BlockBillboardRenderer.previewOffsetX = offsetX;
         BlockBillboardRenderer.previewOffsetY = offsetY;
-        BlockBillboardRenderer.previewOffsetZ = offsetZ;
+        //BlockBillboardRenderer.previewOffsetZ = offsetZ;
     }
 
     private void sendToServer() {
         ModNetworking.CHANNEL.sendToServer(
-                new BlockBillboardUpdatePacket(pos, scale, offsetX, offsetY, offsetZ)
+                new BlockBillboardUpdatePacket(pos, scale, offsetX, offsetY/*, offsetZ*/)
         );
     }
 
