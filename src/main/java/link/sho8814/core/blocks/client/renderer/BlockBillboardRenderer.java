@@ -21,6 +21,12 @@ import org.joml.Matrix4f;
 public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboardEntity> {
     public BlockBillboardRenderer(BlockEntityRendererProvider.Context context) {}
 
+    public static boolean previewEnabled = false;
+    public static float previewScale = 1.0f;
+    public static float previewOffsetX = 0.0f;
+    public static float previewOffsetY = 0.0f;
+    public static float previewOffsetZ = 0.0f;
+
     @Override
     public void render(BlockBillboardEntity entity,
                        float partialTicks,
@@ -41,10 +47,14 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
 
         //System.out.println("RENDER SCALE: " + entity.getScale());
 
-        float scale = entity.getScale();
+        float scale = previewEnabled ? previewScale : entity.getScale();
         poseStack.scale(scale, scale, scale);
 
-        poseStack.translate(entity.getOffsetX(), entity.getOffsetY(), 0);
+        float offsetX = previewEnabled ? previewOffsetX : entity.getOffsetX();
+        float offsetY = previewEnabled ? previewOffsetY : entity.getOffsetY();
+        float offsetZ = previewEnabled ? previewOffsetZ : entity.getOffsetZ();
+
+        poseStack.translate(offsetX, offsetY, entity.getOffsetZ());
 
         ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(
                 "shadowmc_contenttweaker",

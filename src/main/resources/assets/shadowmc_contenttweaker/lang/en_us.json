@@ -30,6 +30,20 @@
 
   "item.shadowmc_contenttweaker.model_test2.tooltip": "<tooltip>",
 
+  // Gui
+    // Billboard
+  "gui.shadowmc_contenttweaker.block_billboard.namespace": "Billboard Settings",
+  "gui.shadowmc_contenttweaker.block_billboard.scale+": "Scale +",
+  "gui.shadowmc_contenttweaker.block_billboard.scale-": "Scale -",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetX+": "Offset X+",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetX-": "Offset X-",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetY+": "Offset Y+",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetY-": "Offset Y-",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetZ+": "Offset Z+",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetZ-": "Offset Z-",
+  "gui.shadowmc_contenttweaker.block_billboard.done": "Done",
+  "gui.shadowmc_contenttweaker.block_billboard.preview": "Preview",
+
   // Utils
   "util.shadowmc_contenttweaker.tooltip.press_shift": "Press Shift"
 }

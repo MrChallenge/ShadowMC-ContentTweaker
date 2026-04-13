@@ -30,6 +30,20 @@
 
   "item.shadowmc_contenttweaker.model_test2.tooltip": "Как варить гречку:\n1. Переберите гречку (при необходимости) и промойте её холодной водой несколько раз, пока она не станет прозрачной.\n2. Всыпьте крупу в кастрюлю (лучше с толстым дном) и залейте водой в соотношении 1:2.\n3. Посолите по вкусу. Доведите до кипения на сильном огне, затем убавьте огонь до минимума, накройте крышкой и варите 15–20 минут.\n4. В течение варки не перемешивайте крупу. Как только вода впитается, снимите с огня, добавьте сливочное масло и дайте постоять под крышкой еще 5–10 минут.",
 
+  // Gui
+    // Billboard
+  "gui.shadowmc_contenttweaker.block_billboard.namespace": "Настройки билборда",
+  "gui.shadowmc_contenttweaker.block_billboard.scale+": "Масштаб +",
+  "gui.shadowmc_contenttweaker.block_billboard.scale-": "Масштаб -",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetX+": "Смещение X+",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetX-": "Смещение X-",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetY+": "Смещение Y+",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetY-": "Смещение Y-",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetZ+": "Смещение Z+",
+  "gui.shadowmc_contenttweaker.block_billboard.offsetZ-": "Смещение Z-",
+  "gui.shadowmc_contenttweaker.block_billboard.done": "Готово",
+  "gui.shadowmc_contenttweaker.block_billboard.preview": "Предпросмотр",
+
   // Utils
   "util.shadowmc_contenttweaker.tooltip.press_shift": "Зажмите Shift"
 }

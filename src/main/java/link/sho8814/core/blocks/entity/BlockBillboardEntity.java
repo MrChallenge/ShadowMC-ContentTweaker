@@ -10,6 +10,7 @@ public class BlockBillboardEntity extends BlockEntity {
     private float scale = 1.0f;
     private float offsetX = 0.0f;
     private float offsetY = 0.0f;
+    private float offsetZ = 0.0f;
     private String texturePath = "block/test/block_billboard";
 
     public BlockBillboardEntity(BlockPos pos, BlockState state) {
@@ -43,6 +44,15 @@ public class BlockBillboardEntity extends BlockEntity {
         setChanged();
     }
 
+    public float getOffsetZ() {
+        return offsetZ;
+    }
+
+    public void setOffsetZ(float offsetZ) {
+        this.offsetZ = offsetZ;
+        setChanged();
+    }
+
     public String getTexturePath() {
         return texturePath;
     }
@@ -52,10 +62,11 @@ public class BlockBillboardEntity extends BlockEntity {
         setChanged();
     }
 
-    public void setClientValues(float scale, float offsetX, float offsetY) {
+    public void setClientValues(float scale, float offsetX, float offsetY, float offsetZ) {
         this.scale = scale;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
+        this.offsetZ = offsetZ;
     }
 
     @Override
@@ -65,6 +76,7 @@ public class BlockBillboardEntity extends BlockEntity {
         tag.putFloat("scale", scale);
         tag.putFloat("offsetX", offsetX);
         tag.putFloat("offsetY", offsetY);
+        tag.putFloat("offsetZ", offsetZ);
         tag.putString("texture", texturePath);
     }
 
@@ -75,6 +87,7 @@ public class BlockBillboardEntity extends BlockEntity {
         if (tag.contains("scale")) scale = tag.getFloat("scale");
         if (tag.contains("offsetX")) offsetX = tag.getFloat("offsetX");
         if (tag.contains("offsetY")) offsetY = tag.getFloat("offsetY");
+        if (tag.contains("offsetZ")) offsetZ = tag.getFloat("offsetZ");
         if (tag.contains("texture")) texturePath = tag.getString("texture");
     }
 
