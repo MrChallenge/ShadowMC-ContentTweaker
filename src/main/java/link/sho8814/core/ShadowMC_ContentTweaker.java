@@ -3,7 +3,8 @@ package link.sho8814.core;
 import link.sho8814.core.blocks.ModBlocks;
 import link.sho8814.core.blocks.ModBlocksEntities;
 import link.sho8814.core.items.ModItems;
-import link.sho8814.core.tabs.ModTab;
+import link.sho8814.core.network.ModNetworking;
+import link.sho8814.core.tab.ModTabMain;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -28,7 +29,8 @@ public class ShadowMC_ContentTweaker {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
-        ModTab.register(modEventBus);
+        ModTabMain.register(modEventBus);
+        ModNetworking.register();
 
         ModBlocksEntities.BLOCK_ENTITIES.register(modEventBus);
 

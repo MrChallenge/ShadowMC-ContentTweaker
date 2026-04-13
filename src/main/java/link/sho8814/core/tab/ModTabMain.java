@@ -1,4 +1,4 @@
-package link.sho8814.core.tabs;
+package link.sho8814.core.tab;
 
 import link.sho8814.core.blocks.ModBlocks;
 import net.minecraft.core.registries.Registries;
@@ -13,9 +13,9 @@ import link.sho8814.core.items.ModItems;
 
 import java.util.Set;
 
-public class ModTab extends CreativeModeTab {
+public class ModTabMain extends CreativeModeTab {
 
-    protected ModTab(Builder builder) {
+    protected ModTabMain(Builder builder) {
         super(builder);
     }
 

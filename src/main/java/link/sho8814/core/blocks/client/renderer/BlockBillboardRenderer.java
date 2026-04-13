@@ -19,9 +19,6 @@ import org.joml.Matrix4f;
 @OnlyIn(Dist.CLIENT)
 
 public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboardEntity> {
-    private static final ResourceLocation TEXTURE_BILLBOARD =
-            ResourceLocation.fromNamespaceAndPath("shadowmc_contenttweaker", "block/test/block_billboard");
-
     public BlockBillboardRenderer(BlockEntityRendererProvider.Context context) {}
 
     @Override
@@ -32,9 +29,9 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
                        int packedLight,
                        int packedOverlay) {
 
-        Minecraft mc = Minecraft.getInstance();
-
         poseStack.pushPose();
+
+        Minecraft mc = Minecraft.getInstance();
 
         poseStack.translate(0.5, 0.5, 0.5);
 
@@ -42,12 +39,20 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
 
         poseStack.mulPose(Axis.YP.rotationDegrees(180));
 
-        float scale = getTextureScale();
+        //System.out.println("RENDER SCALE: " + entity.getScale());
+
+        float scale = entity.getScale();
         poseStack.scale(scale, scale, scale);
 
-        TextureAtlasSprite sprite = Minecraft.getInstance()
-                .getTextureAtlas(TextureAtlas.LOCATION_BLOCKS)
-                .apply(TEXTURE_BILLBOARD);
+        poseStack.translate(entity.getOffsetX(), entity.getOffsetY(), 0);
+
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(
+                "shadowmc_contenttweaker",
+                entity.getTexturePath()
+        );
+
+        TextureAtlasSprite sprite = mc.getTextureAtlas(TextureAtlas.LOCATION_BLOCKS)
+                .apply(texture);
 
         VertexConsumer vc = buffer.getBuffer(RenderType.cutout());
         Matrix4f matrix = poseStack.last().pose();
@@ -85,9 +90,5 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
                 .endVertex();
 
         poseStack.popPose();
-    }
-
-    private float getTextureScale() {
-        return 4.0f;
     }
 }
