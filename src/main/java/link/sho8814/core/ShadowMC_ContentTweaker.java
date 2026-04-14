@@ -1,7 +1,7 @@
 package link.sho8814.core;
 
 import link.sho8814.core.blocks.ModBlocks;
-import link.sho8814.core.blocks.ModBlocksEntities;
+import link.sho8814.core.blocks.entity.ModBlocksEntities;
 import link.sho8814.core.items.ModItems;
 import link.sho8814.core.network.ModNetworking;
 import link.sho8814.core.tab.ModTabMain;

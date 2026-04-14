@@ -1,6 +1,6 @@
-package link.sho8814.core.blocks;
+package link.sho8814.core.blocks.entity;
 
-import link.sho8814.core.blocks.entity.BlockBillboardEntity;
+import link.sho8814.core.blocks.ModBlocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

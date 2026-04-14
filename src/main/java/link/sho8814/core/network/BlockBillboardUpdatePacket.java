@@ -14,13 +14,15 @@ public class BlockBillboardUpdatePacket {
     private final float offsetX;
     private final float offsetY;
     //private final float offsetZ;
+    private final String url;
 
-    public BlockBillboardUpdatePacket(BlockPos pos, float scale, float offsetX, float offsetY/*, float offsetZ*/) {
+    public BlockBillboardUpdatePacket(BlockPos pos, float scale, float offsetX, float offsetY,/* float offsetZ,*/ String url) {
         this.pos = pos;
         this.scale = scale;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         //this.offsetZ = offsetZ;
+        this.url = url;
     }
 
     public static void encode(BlockBillboardUpdatePacket msg, FriendlyByteBuf buf) {
@@ -29,6 +31,7 @@ public class BlockBillboardUpdatePacket {
         buf.writeFloat(msg.offsetX);
         buf.writeFloat(msg.offsetY);
         //buf.writeFloat(msg.offsetZ);
+        buf.writeUtf(msg.url, 512);
     }
 
     public static BlockBillboardUpdatePacket decode(FriendlyByteBuf buf) {
@@ -37,7 +40,8 @@ public class BlockBillboardUpdatePacket {
                 buf.readFloat(),
                 buf.readFloat(),
                 //buf.readFloat(),
-                buf.readFloat()
+                buf.readFloat(),
+                buf.readUtf(512)
         );
     }
 
@@ -54,6 +58,7 @@ public class BlockBillboardUpdatePacket {
                 be.setOffsetX(msg.offsetX);
                 be.setOffsetY(msg.offsetY);
                 //be.setOffsetZ(msg.offsetZ);
+                be.setImageUrl(msg.url);
                 be.setChanged();
                 level.sendBlockUpdated(msg.pos, level.getBlockState(msg.pos), level.getBlockState(msg.pos), 3);
             }

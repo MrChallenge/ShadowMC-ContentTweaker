@@ -1,6 +1,6 @@
 package link.sho8814.core.blocks.client;
 
-import link.sho8814.core.blocks.ModBlocksEntities;
+import link.sho8814.core.blocks.entity.ModBlocksEntities;
 import link.sho8814.core.blocks.client.renderer.BlockBillboardRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;

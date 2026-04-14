@@ -7,6 +7,7 @@ import link.sho8814.core.network.ModNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -15,6 +16,8 @@ public class BlockBillboardScreen extends Screen {
 
     private final BlockPos pos;
     private final BlockBillboardEntity entity;
+
+    private EditBox urlBox;
 
     private float scale = 1.0f;
     private float offsetX = 0.0f;
@@ -38,61 +41,67 @@ public class BlockBillboardScreen extends Screen {
     @Override
     protected void init() {
 
-        // SCALE +
+        // Scale +
         addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.scale+"), b -> {
             scale += 0.25f;
             updatePreview();
         }).bounds(width / 2 - 105, height / 2 - 130, 100, 20).build());
 
-        // SCALE -
+        // Scale -
         addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.scale-"), b -> {
             scale -= 0.25f;
             updatePreview();
         }).bounds(width / 2 + 5, height / 2 - 130, 100, 20).build());
 
-        // OFFSET X +
+        // Offset X +
         addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetX+"), b -> {
             offsetX += 0.25f;
             updatePreview();
-        }).bounds(width / 2 - 105, height / 2 - 105, 100, 20).build());
+        }).bounds(width / 2 - 105, height / 2 - 107, 100, 20).build());
 
-        // OFFSET X -
+        // Offset X -
         addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetX-"), b -> {
             offsetX -= 0.25f;
             updatePreview();
-        }).bounds(width / 2 + 5, height / 2 - 105, 100, 20).build());
+        }).bounds(width / 2 + 5, height / 2 - 107, 100, 20).build());
 
-        // OFFSET Y +
+        // Offset Y +
         addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetY+"), b -> {
             offsetY += 0.25f;
             updatePreview();
-        }).bounds(width / 2 - 105, height / 2 - 80, 100, 20).build());
+        }).bounds(width / 2 - 105, height / 2 - 84, 100, 20).build());
 
-        // OFFSET Y -
+        // Offset Y -
         addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetY-"), b -> {
             offsetY -= 0.25f;
             updatePreview();
-        }).bounds(width / 2 + 5, height / 2 - 80, 100, 20).build());
+        }).bounds(width / 2 + 5, height / 2 - 84, 100, 20).build());
 /*
-        // OFFSET Z +
+        // Offset Z +
         addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetZ+"), b -> {
             offsetZ += 0.25f;
             updatePreview();
-        }).bounds(width / 2 - 105, height / 2 - 55, 100, 20).build());
+        }).bounds(width / 2 - 103, height / 2 - 58, 100, 20).build());
 
-        // OFFSET Z -
+        // Offset Z -
         addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetZ-"), b -> {
             offsetZ -= 0.25f;
             updatePreview();
-        }).bounds(width / 2 + 5, height / 2 - 55, 100, 20).build());
+        }).bounds(width / 2 + 2, height / 2 - 58, 100, 20).build());
 */
-        // APPLY
+        // URL
+        urlBox = new EditBox(font, width / 2 - 104, height / 2 - 60, 208, 20, Component.translatable("gui.shadowmc_contenttweaker.block_billboard.url"));
+        urlBox.setMaxLength(512);
+        urlBox.setValue(entity != null ? entity.getImageUrl() : "");
+        addRenderableWidget(urlBox);
+
+        // Done
         addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.done"), b -> {
             sendToServer();
 
             BlockBillboardRenderer.previewEnabled = false;
 
-        }).bounds(width / 2 - 50, height / 2 - 55, 100, 20).build());
+        }).bounds(width / 2 - 50, height / 2 - 36, 100, 20).build());
     }
 
     private void updatePreview() {
@@ -104,8 +113,9 @@ public class BlockBillboardScreen extends Screen {
     }
 
     private void sendToServer() {
+        String url = urlBox.getValue();
         ModNetworking.CHANNEL.sendToServer(
-                new BlockBillboardUpdatePacket(pos, scale, offsetX, offsetY/*, offsetZ*/)
+                new BlockBillboardUpdatePacket(pos, scale, offsetX, offsetY,/*offsetZ,*/ url)
         );
     }
 

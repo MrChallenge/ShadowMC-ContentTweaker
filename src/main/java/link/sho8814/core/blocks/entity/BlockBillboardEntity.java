@@ -1,6 +1,5 @@
 package link.sho8814.core.blocks.entity;
 
-import link.sho8814.core.blocks.ModBlocksEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -11,7 +10,17 @@ public class BlockBillboardEntity extends BlockEntity {
     private float offsetX = 0.0f;
     private float offsetY = 0.0f;
     private float offsetZ = 0.0f;
-    private String texturePath = "block/test/block_billboard";
+    private String texturePath = "block/block_billboard";
+    private String imageUrl = "";
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String url) {
+        this.imageUrl = url;
+        setChanged();
+    }
 
     public BlockBillboardEntity(BlockPos pos, BlockState state) {
         super(ModBlocksEntities.ENTITY_BILLBOARD.get(), pos, state);
@@ -78,6 +87,7 @@ public class BlockBillboardEntity extends BlockEntity {
         tag.putFloat("offsetY", offsetY);
         tag.putFloat("offsetZ", offsetZ);
         tag.putString("texture", texturePath);
+        tag.putString("imageUrl", imageUrl);
     }
 
     @Override
@@ -89,11 +99,17 @@ public class BlockBillboardEntity extends BlockEntity {
         if (tag.contains("offsetY")) offsetY = tag.getFloat("offsetY");
         if (tag.contains("offsetZ")) offsetZ = tag.getFloat("offsetZ");
         if (tag.contains("texture")) texturePath = tag.getString("texture");
+        if (tag.contains("imageUrl")) imageUrl = tag.getString("imageUrl");
     }
 
     @Override
     public CompoundTag getUpdateTag() {
         return saveWithoutMetadata();
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        this.load(tag);
     }
 
     @Override

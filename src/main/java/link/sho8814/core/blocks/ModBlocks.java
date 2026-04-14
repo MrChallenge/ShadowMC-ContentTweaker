@@ -25,7 +25,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> MODEL_TEST2 = BLOCKS.register("test/model_test2", ModelTest2::new);
 
     // Special
-    public static final RegistryObject<Block> BLOCK_BILLBOARD = BLOCKS.register("test/block_billboard",
+    public static final RegistryObject<Block> BLOCK_BILLBOARD = BLOCKS.register("block_billboard",
             () -> new BlockBillboard(BlockBehaviour.Properties.of().noCollission()));
 
     public static void register(IEventBus eventBus) {

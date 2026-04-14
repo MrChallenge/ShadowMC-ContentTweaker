@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import link.sho8814.core.blocks.entity.BlockBillboardEntity;
+import link.sho8814.core.network.UrlTextureLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -26,6 +27,8 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
     public static float previewOffsetX = 0.0f;
     public static float previewOffsetY = 0.0f;
     //public static float previewOffsetZ = 0.0f;
+    private static ResourceLocation loadedTexture = null;
+    private static String lastUrl = "";
 
     @Override
     public void render(BlockBillboardEntity entity,
@@ -44,8 +47,6 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
         poseStack.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
         poseStack.mulPose(Axis.YP.rotationDegrees(180));
 
-        //System.out.println("RENDER SCALE: " + entity.getScale());
-
         float scale = previewEnabled ? previewScale : entity.getScale();
         poseStack.scale(scale, scale, scale);
 
@@ -53,22 +54,60 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
         float offsetY = previewEnabled ? previewOffsetY : entity.getOffsetY();
         //float offsetZ = previewEnabled ? previewOffsetZ : entity.getOffsetZ();
 
-        poseStack.translate(offsetX, offsetY, entity.getOffsetZ());
+        poseStack.translate(offsetX, offsetY, 0);
 
-        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(
-                "shadowmc_contenttweaker",
-                entity.getTexturePath()
-        );
+        //System.out.println("RENDER SCALE: " + entity.getScale());
 
-        TextureAtlasSprite sprite = mc.getTextureAtlas(TextureAtlas.LOCATION_BLOCKS)
-                .apply(texture);
+        String url = entity.getImageUrl();
 
-        VertexConsumer vc = buffer.getBuffer(RenderType.cutout());
+        //System.out.println("URL: " + url);
+
+        if (!url.equals(lastUrl)) {
+            lastUrl = url;
+            loadedTexture = null;
+
+            if (url.isEmpty()) {
+                loadedTexture = null;
+            }
+
+            UrlTextureLoader.loadTexture(url).thenAccept(tex -> {
+                loadedTexture = tex;
+            });
+        }
+
+        VertexConsumer vc;
+        float u0, u1, v0, v1;
+
+        if (loadedTexture != null) {
+            vc = buffer.getBuffer(RenderType.entityCutout(loadedTexture));
+
+            u0 = 0f;
+            u1 = 1f;
+            v0 = 0f;
+            v1 = 1f;
+
+        } else {
+            ResourceLocation blockTex = new ResourceLocation(
+                    "shadowmc_contenttweaker",
+                    "block/block_billboard"
+            );
+
+            TextureAtlasSprite sprite = mc.getTextureAtlas(TextureAtlas.LOCATION_BLOCKS)
+                    .apply(blockTex);
+
+            vc = buffer.getBuffer(RenderType.cutout());
+
+            u0 = sprite.getU0();
+            u1 = sprite.getU1();
+            v0 = sprite.getV0();
+            v1 = sprite.getV1();
+        }
+
         Matrix4f matrix = poseStack.last().pose();
 
         vc.vertex(matrix, -0.5f, -0.5f, 0.0f)
                 .color(255, 255, 255, 255)
-                .uv(sprite.getU0(), sprite.getV1())
+                .uv(u0, v1)
                 .overlayCoords(packedOverlay)
                 .uv2(packedLight)
                 .normal(0, 0, 1)
@@ -76,7 +115,7 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
 
         vc.vertex(matrix, 0.5f, -0.5f, 0.0f)
                 .color(255, 255, 255, 255)
-                .uv(sprite.getU1(), sprite.getV1())
+                .uv(u1, v1)
                 .overlayCoords(packedOverlay)
                 .uv2(packedLight)
                 .normal(0, 0, 1)
@@ -84,7 +123,7 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
 
         vc.vertex(matrix, 0.5f, 0.5f, 0.0f)
                 .color(255, 255, 255, 255)
-                .uv(sprite.getU1(), sprite.getV0())
+                .uv(u1, v0)
                 .overlayCoords(packedOverlay)
                 .uv2(packedLight)
                 .normal(0, 0, 1)
@@ -92,7 +131,7 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
 
         vc.vertex(matrix, -0.5f, 0.5f, 0.0f)
                 .color(255, 255, 255, 255)
-                .uv(sprite.getU0(), sprite.getV0())
+                .uv(u0, v0)
                 .overlayCoords(packedOverlay)
                 .uv2(packedLight)
                 .normal(0, 0, 1)
