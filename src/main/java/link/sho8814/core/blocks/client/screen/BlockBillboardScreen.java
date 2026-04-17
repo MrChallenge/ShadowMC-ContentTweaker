@@ -11,18 +11,28 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
 public class BlockBillboardScreen extends Screen {
+    private static final ResourceLocation BG =
+            new ResourceLocation("minecraft", "textures/gui/demo_background.png");
 
     private final BlockPos pos;
     private final BlockBillboardEntity entity;
 
+    private int leftPos;
+    private int topPos;
+    private final int imageWidth = 176;
+    private final int imageHeight = 166;
+
     private EditBox urlBox;
+    private EditBox scaleBox;
+    private EditBox offsetXBox;
+    private EditBox offsetYBox;
 
     private float scale = 1.0f;
     private float offsetX = 0.0f;
     private float offsetY = 0.0f;
-    //private float offsetZ = 0.0f;
 
     public BlockBillboardScreen(BlockPos pos) {
         super(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.namespace"));
@@ -34,74 +44,102 @@ public class BlockBillboardScreen extends Screen {
             this.scale = entity.getScale();
             this.offsetX = entity.getOffsetX();
             this.offsetY = entity.getOffsetY();
-            //this.offsetZ = entity.getOffsetZ();
         }
     }
 
     @Override
     protected void init() {
 
-        // Scale +
-        addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.scale+"), b -> {
-            scale += 0.25f;
-            updatePreview();
-        }).bounds(width / 2 - 105, height / 2 - 130, 100, 20).build());
+        leftPos = (width - imageWidth) / 2;
+        topPos = (height - imageHeight) / 2;
 
-        // Scale -
-        addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.scale-"), b -> {
+        int y = topPos + 30;
+        int spacing = 28;
+
+        // Scale
+        scaleBox = createBox(leftPos + 63, y, scale);
+        addRenderableWidget(scaleBox);
+
+        // -
+        addRenderableWidget(createButton(leftPos + 20, y, "-", () -> {
             scale -= 0.25f;
-            updatePreview();
-        }).bounds(width / 2 + 5, height / 2 - 130, 100, 20).build());
+            updateFields();
+        }));
 
-        // Offset X +
-        addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetX+"), b -> {
-            offsetX += 0.25f;
-            updatePreview();
-        }).bounds(width / 2 - 105, height / 2 - 107, 100, 20).build());
+        // +
+        addRenderableWidget(createButton(leftPos + 140, y, "+", () -> {
+            scale += 0.25f;
+            updateFields();
+        }));
 
-        // Offset X -
-        addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetX-"), b -> {
+        // Offset X
+        offsetXBox = createBox(leftPos + 63, y + spacing, offsetX);
+        addRenderableWidget(offsetXBox);
+
+        // -
+        addRenderableWidget(createButton(leftPos + 20, y + spacing, "-", () -> {
             offsetX -= 0.25f;
-            updatePreview();
-        }).bounds(width / 2 + 5, height / 2 - 107, 100, 20).build());
+            updateFields();
+        }));
 
-        // Offset Y +
-        addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetY+"), b -> {
-            offsetY += 0.25f;
-            updatePreview();
-        }).bounds(width / 2 - 105, height / 2 - 84, 100, 20).build());
+        // +
+        addRenderableWidget(createButton(leftPos + 140, y + spacing, "+", () -> {
+            offsetX += 0.25f;
+            updateFields();
+        }));
 
-        // Offset Y -
-        addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetY-"), b -> {
+        // Offset Y
+        offsetYBox = createBox(leftPos + 63, y + spacing * 2, offsetY);
+        addRenderableWidget(offsetYBox);
+
+        // -
+        addRenderableWidget(createButton(leftPos + 20, y + spacing * 2, "-", () -> {
             offsetY -= 0.25f;
-            updatePreview();
-        }).bounds(width / 2 + 5, height / 2 - 84, 100, 20).build());
-/*
-        // Offset Z +
-        addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetZ+"), b -> {
-            offsetZ += 0.25f;
-            updatePreview();
-        }).bounds(width / 2 - 103, height / 2 - 58, 100, 20).build());
+            updateFields();
+        }));
 
-        // Offset Z -
-        addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.offsetZ-"), b -> {
-            offsetZ -= 0.25f;
-            updatePreview();
-        }).bounds(width / 2 + 2, height / 2 - 58, 100, 20).build());
-*/
+        // +
+        addRenderableWidget(createButton(leftPos + 140, y + spacing * 2, "+", () -> {
+            offsetY += 0.25f;
+            updateFields();
+        }));
+
         // URL
-        urlBox = new EditBox(font, width / 2 - 104, height / 2 - 60, 208, 20, Component.translatable("gui.shadowmc_contenttweaker.block_billboard.url"));
-        urlBox.setMaxLength(512);
+        urlBox = new EditBox(font, leftPos + 20, topPos + 110, 136, 20,
+                Component.translatable("gui.shadowmc_contenttweaker.block_billboard.url"));
+
+        urlBox.setMaxLength(1024);
         urlBox.setValue(entity != null ? entity.getImageUrl() : "");
         addRenderableWidget(urlBox);
 
         // Done
-        addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.done"), b -> {
-            sendToServer();
+        addRenderableWidget(Button.builder(
+                Component.translatable("gui.shadowmc_contenttweaker.block_billboard.done"),
+                b -> sendToServer()
+        ).bounds(leftPos + 40, topPos + 135, 100, 20).build());
 
-            BlockBillboardRenderer.previewEnabled = false;
+        updateFields();
+    }
 
-        }).bounds(width / 2 - 50, height / 2 - 36, 100, 20).build());
+    private EditBox createBox(int x, int y, float value) {
+        EditBox box = new EditBox(font, x, y, 50, 18, Component.empty());
+        box.setMaxLength(20);
+        box.setValue(String.format("%.2f", value));
+        return box;
+    }
+
+    private Button createButton(int x, int y, String text, Runnable action) {
+        return Button.builder(Component.literal(text), b -> action.run())
+                .bounds(x, y, 20, 20)
+                .build();
+    }
+
+    private void updateFields() {
+        scaleBox.setValue(String.format("%.2f", scale));
+        offsetXBox.setValue(String.format("%.2f", offsetX));
+        offsetYBox.setValue(String.format("%.2f", offsetY));
+
+        updatePreview();
     }
 
     private void updatePreview() {
@@ -109,13 +147,19 @@ public class BlockBillboardScreen extends Screen {
         BlockBillboardRenderer.previewScale = scale;
         BlockBillboardRenderer.previewOffsetX = offsetX;
         BlockBillboardRenderer.previewOffsetY = offsetY;
-        //BlockBillboardRenderer.previewOffsetZ = offsetZ;
     }
 
     private void sendToServer() {
+        try {
+            scale = Float.parseFloat(scaleBox.getValue());
+            offsetX = Float.parseFloat(offsetXBox.getValue());
+            offsetY = Float.parseFloat(offsetYBox.getValue());
+        } catch (Exception ignored) {}
+
         String url = urlBox.getValue();
+
         ModNetworking.CHANNEL.sendToServer(
-                new BlockBillboardUpdatePacket(pos, scale, offsetX, offsetY,/*offsetZ,*/ url)
+                new BlockBillboardUpdatePacket(pos, scale, offsetX, offsetY, url)
         );
     }
 
@@ -128,7 +172,17 @@ public class BlockBillboardScreen extends Screen {
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(guiGraphics);
-        guiGraphics.drawCenteredString(font, Component.translatable("gui.shadowmc_contenttweaker.block_billboard.namespace"), width / 2, 20, 0xFFFFFF);
+
+        guiGraphics.blit(BG, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+
+        guiGraphics.drawCenteredString(
+                font,
+                Component.translatable("gui.shadowmc_contenttweaker.block_billboard.namespace"),
+                width / 2,
+                topPos + 10,
+                0xFFFFFF
+        );
+
         super.render(guiGraphics, mouseX, mouseY, partialTick);
     }
 }

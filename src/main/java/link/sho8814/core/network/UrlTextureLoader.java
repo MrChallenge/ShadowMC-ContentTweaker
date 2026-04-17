@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.concurrent.CompletableFuture;
 
 public class UrlTextureLoader {
-
     public static CompletableFuture<ResourceLocation> loadTexture(String url) {
         return CompletableFuture.supplyAsync(() -> {
             try (InputStream stream = new URL(url).openStream()) {

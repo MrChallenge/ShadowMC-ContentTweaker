@@ -16,9 +16,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Matrix4f;
+import java.util.HashMap;
+import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
-
 public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboardEntity> {
     public BlockBillboardRenderer(BlockEntityRendererProvider.Context context) {}
 
@@ -26,9 +27,8 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
     public static float previewScale = 1.0f;
     public static float previewOffsetX = 0.0f;
     public static float previewOffsetY = 0.0f;
-    //public static float previewOffsetZ = 0.0f;
-    private static ResourceLocation loadedTexture = null;
-    private static String lastUrl = "";
+
+    private static final Map<String, ResourceLocation> textureCache = new HashMap<>();
 
     @Override
     public void render(BlockBillboardEntity entity,
@@ -52,34 +52,29 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
 
         float offsetX = previewEnabled ? previewOffsetX : entity.getOffsetX();
         float offsetY = previewEnabled ? previewOffsetY : entity.getOffsetY();
-        //float offsetZ = previewEnabled ? previewOffsetZ : entity.getOffsetZ();
 
         poseStack.translate(offsetX, offsetY, 0);
 
-        //System.out.println("RENDER SCALE: " + entity.getScale());
-
         String url = entity.getImageUrl();
 
-        //System.out.println("URL: " + url);
+        ResourceLocation texture = textureCache.get(url);
 
-        if (!url.equals(lastUrl)) {
-            lastUrl = url;
-            loadedTexture = null;
-
-            if (url.isEmpty()) {
-                loadedTexture = null;
-            }
+        if (texture == null && url != null && !url.isEmpty()) {
+            textureCache.put(url, null);
 
             UrlTextureLoader.loadTexture(url).thenAccept(tex -> {
-                loadedTexture = tex;
+                if (tex != null) {
+                    textureCache.put(url, tex);
+                }
             });
         }
 
         VertexConsumer vc;
         float u0, u1, v0, v1;
 
-        if (loadedTexture != null) {
-            vc = buffer.getBuffer(RenderType.entityCutout(loadedTexture));
+        if (texture != null) {
+
+            vc = buffer.getBuffer(RenderType.entityCutout(texture));
 
             u0 = 0f;
             u1 = 1f;
@@ -87,6 +82,7 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
             v1 = 1f;
 
         } else {
+
             ResourceLocation blockTex = new ResourceLocation(
                     "shadowmc_contenttweaker",
                     "block/block_billboard"
