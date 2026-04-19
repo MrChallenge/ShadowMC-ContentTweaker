@@ -14,13 +14,17 @@ public class BlockBillboardUpdatePacket {
     private final float offsetX;
     private final float offsetY;
     private final String url;
+    private final boolean flipX;
+    private final boolean flipY;
 
-    public BlockBillboardUpdatePacket(BlockPos pos, float scale, float offsetX, float offsetY, String url) {
+    public BlockBillboardUpdatePacket(BlockPos pos, float scale, float offsetX, float offsetY, String url, boolean flipX, boolean flipY) {
         this.pos = pos;
         this.scale = scale;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.url = url;
+        this.flipX = flipX;
+        this.flipY = flipY;
     }
 
     public static void encode(BlockBillboardUpdatePacket msg, FriendlyByteBuf buf) {
@@ -29,6 +33,8 @@ public class BlockBillboardUpdatePacket {
         buf.writeFloat(msg.offsetX);
         buf.writeFloat(msg.offsetY);
         buf.writeUtf(msg.url, 1024);
+        buf.writeBoolean(msg.flipX);
+        buf.writeBoolean(msg.flipY);
     }
 
     public static BlockBillboardUpdatePacket decode(FriendlyByteBuf buf) {
@@ -37,7 +43,9 @@ public class BlockBillboardUpdatePacket {
                 buf.readFloat(),
                 buf.readFloat(),
                 buf.readFloat(),
-                buf.readUtf(1024)
+                buf.readUtf(1024),
+                buf.readBoolean(),
+                buf.readBoolean()
         );
     }
 
@@ -53,6 +61,7 @@ public class BlockBillboardUpdatePacket {
                 be.setOffsetX(msg.offsetX);
                 be.setOffsetY(msg.offsetY);
                 be.setImageUrl(msg.url);
+                be.setFlip(msg.flipX, msg.flipY);
                 be.setChanged();
                 level.sendBlockUpdated(msg.pos, level.getBlockState(msg.pos), level.getBlockState(msg.pos), 3);
             }

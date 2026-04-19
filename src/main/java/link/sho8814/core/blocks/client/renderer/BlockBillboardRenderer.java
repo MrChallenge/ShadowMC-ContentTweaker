@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Matrix4f;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,9 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
     public BlockBillboardRenderer(BlockEntityRendererProvider.Context context) {}
 
     public static boolean previewEnabled = false;
+    public static boolean previewFlipX = false;
+    public static boolean previewFlipY = false;
+
     public static float previewScale = 1.0f;
     public static float previewOffsetX = 0.0f;
     public static float previewOffsetY = 0.0f;
@@ -47,25 +51,24 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
         poseStack.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
         poseStack.mulPose(Axis.YP.rotationDegrees(180));
 
+        boolean flipX = previewEnabled ? previewFlipX : entity.isFlipX();
+        boolean flipY = previewEnabled ? previewFlipY : entity.isFlipY();
+
         float scale = previewEnabled ? previewScale : entity.getScale();
         poseStack.scale(scale, scale, scale);
 
         float offsetX = previewEnabled ? previewOffsetX : entity.getOffsetX();
         float offsetY = previewEnabled ? previewOffsetY : entity.getOffsetY();
-
         poseStack.translate(offsetX, offsetY, 0);
 
         String url = entity.getImageUrl();
-
         ResourceLocation texture = textureCache.get(url);
 
         if (texture == null && url != null && !url.isEmpty()) {
             textureCache.put(url, null);
 
             UrlTextureLoader.loadTexture(url).thenAccept(tex -> {
-                if (tex != null) {
-                    textureCache.put(url, tex);
-                }
+                if (tex != null) textureCache.put(url, tex);
             });
         }
 
@@ -73,7 +76,6 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
         float u0, u1, v0, v1;
 
         if (texture != null) {
-
             vc = buffer.getBuffer(RenderType.entityCutout(texture));
 
             u0 = 0f;
@@ -82,7 +84,6 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
             v1 = 1f;
 
         } else {
-
             ResourceLocation blockTex = new ResourceLocation(
                     "shadowmc_contenttweaker",
                     "block/block_billboard"
@@ -97,6 +98,18 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
             u1 = sprite.getU1();
             v0 = sprite.getV0();
             v1 = sprite.getV1();
+        }
+
+        if (flipX) {
+            float tmp = u0;
+            u0 = u1;
+            u1 = tmp;
+        }
+
+        if (flipY) {
+            float tmp = v0;
+            v0 = v1;
+            v1 = tmp;
         }
 
         Matrix4f matrix = poseStack.last().pose();

@@ -5,27 +5,71 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.resources.ResourceLocation;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.CompletableFuture;
 
 public class UrlTextureLoader {
+
     public static CompletableFuture<ResourceLocation> loadTexture(String url) {
         return CompletableFuture.supplyAsync(() -> {
-            try (InputStream stream = new URL(url).openStream()) {
 
-                NativeImage image = NativeImage.read(stream);
+            try {
+                URL u = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) u.openConnection();
 
-                if (image.getWidth() == 0 || image.getHeight() == 0) {
+                connection.setRequestProperty("User-Agent", "Mozilla/5.0");
+                connection.setConnectTimeout(5000);
+                connection.setReadTimeout(5000);
+
+                connection.connect();
+
+                int responseCode = connection.getResponseCode();
+                if (responseCode != 200) {
+                    System.out.println("HTTP ERROR: " + responseCode + " | " + url);
                     return null;
                 }
 
-                DynamicTexture texture = new DynamicTexture(image);
+                String contentType = connection.getContentType();
+                if (contentType == null || !contentType.startsWith("image")) {
+                    System.out.println("NOT AN IMAGE: " + contentType + " | " + url);
+                    return null;
+                }
 
-                return Minecraft.getInstance()
-                        .getTextureManager()
-                        .register("url_texture_" + System.nanoTime(), texture);
+                try (InputStream stream = connection.getInputStream()) {
+
+                    NativeImage image;
+
+                    try {
+                        image = NativeImage.read(stream);
+                    } catch (Exception e) {
+                        System.out.println("FAILED TO READ IMAGE: " + url);
+                        return null;
+                    }
+
+                    if (image == null) {
+                        System.out.println("IMAGE NULL: " + url);
+                        return null;
+                    }
+
+                    if (image.getWidth() <= 0 || image.getHeight() <= 0) {
+                        System.out.println("INVALID SIZE: " + url);
+                        return null;
+                    }
+
+                    NativeImage finalImage = image;
+
+                    return Minecraft.getInstance().submit(() -> {
+                        DynamicTexture texture = new DynamicTexture(finalImage);
+
+                        return Minecraft.getInstance()
+                                .getTextureManager()
+                                .register("url_texture_" + System.nanoTime(), texture);
+                    }).join();
+                }
 
             } catch (Exception e) {
+                System.out.println("FAILED LOAD: " + url);
                 e.printStackTrace();
                 return null;
             }

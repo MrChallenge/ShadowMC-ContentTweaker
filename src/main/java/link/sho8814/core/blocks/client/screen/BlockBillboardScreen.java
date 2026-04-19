@@ -7,6 +7,7 @@ import link.sho8814.core.network.ModNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -41,15 +42,13 @@ public class BlockBillboardScreen extends Screen {
     private final BlockPos pos;
     private final BlockBillboardEntity entity;
 
-    private int leftPos;
-    private int topPos;
-    private final int imageWidth = 176;
-    private final int imageHeight = 166;
-
     private EditBox urlBox;
     private EditBox scaleBox;
     private EditBox offsetXBox;
     private EditBox offsetYBox;
+
+    private Checkbox flipXBox;
+    private Checkbox flipYBox;
 
     private ArrowButtons scalePlus;
     private ArrowButtons scaleMinus;
@@ -59,6 +58,9 @@ public class BlockBillboardScreen extends Screen {
 
     private ArrowButtons offsetYPlus;
     private ArrowButtons offsetYMinus;
+
+    private boolean flipX = false;
+    private boolean flipY = false;
 
     private float scale = 1.0f;
     private float offsetX = 0.0f;
@@ -74,6 +76,8 @@ public class BlockBillboardScreen extends Screen {
             this.scale = entity.getScale();
             this.offsetX = entity.getOffsetX();
             this.offsetY = entity.getOffsetY();
+            this.flipX = entity.isFlipX();
+            this.flipY = entity.isFlipY();
         }
     }
 
@@ -100,7 +104,6 @@ public class BlockBillboardScreen extends Screen {
         scaleBox = createBox(centerX - boxWidth / 2, yScale, scale);
         addRenderableWidget(scaleBox);
 
-        // +
         scalePlus = new ArrowButtons(
                 centerX + arrowOffset - arrowX / 2,
                 yScale + arrowYOffset,
@@ -112,7 +115,6 @@ public class BlockBillboardScreen extends Screen {
                 }
         );
 
-        // -
         scaleMinus = new ArrowButtons(
                 centerX - arrowOffset - arrowX / 2,
                 yScale + arrowYOffset,
@@ -134,7 +136,6 @@ public class BlockBillboardScreen extends Screen {
         offsetYBox = createBox(centerX - boxWidth / 2, yOffsetY, offsetY);
         addRenderableWidget(offsetYBox);
 
-        // +
         offsetYPlus = new ArrowButtons(
                 centerX + arrowOffset - arrowX / 2,
                 yOffsetY + arrowYOffset,
@@ -146,7 +147,6 @@ public class BlockBillboardScreen extends Screen {
                 }
         );
 
-        // -
         offsetYMinus = new ArrowButtons(
                 centerX - arrowOffset - arrowX / 2,
                 yOffsetY + arrowYOffset,
@@ -168,7 +168,6 @@ public class BlockBillboardScreen extends Screen {
         offsetXBox = createBox(centerX - boxWidth / 2, yOffsetX, offsetX);
         addRenderableWidget(offsetXBox);
 
-        // +
         offsetXPlus = new ArrowButtons(
                 centerX + arrowOffset - arrowX / 2,
                 yOffsetX + arrowYOffset,
@@ -180,7 +179,6 @@ public class BlockBillboardScreen extends Screen {
                 }
         );
 
-        // -
         offsetXMinus = new ArrowButtons(
                 centerX - arrowOffset - arrowX / 2,
                 yOffsetX + arrowYOffset,
@@ -204,17 +202,50 @@ public class BlockBillboardScreen extends Screen {
                 urlY,
                 160,
                 20,
-                Component.translatable("gui.shadowmc_contenttweaker.block_billboard.url"));
+                Component.empty());
 
         urlBox.setMaxLength(1024);
         urlBox.setValue(entity != null ? entity.getImageUrl() : "");
         addRenderableWidget(urlBox);
 
+        // ================= Layout =================
+
+        int spacing = 25;
+
+        int checkY = urlY + spacing;
+        int checkboxSpacing = 22;
+
+        int buttonY = checkY + checkboxSpacing * 2 + 5;
+
+        // ================= Checkbox =================
+
+        flipXBox = new Checkbox(
+                centerX - 80,
+                checkY,
+                20,
+                20,
+                Component.translatable("gui.shadowmc_contenttweaker.block_billboard.flipX"),
+                flipX
+        );
+
+        flipYBox = new Checkbox(
+                centerX - 80,
+                checkY + checkboxSpacing,
+                20,
+                20,
+                Component.translatable("gui.shadowmc_contenttweaker.block_billboard.flipY"),
+                flipY
+        );
+
+        addRenderableWidget(flipXBox);
+        addRenderableWidget(flipYBox);
+
         // ================= DONE =================
 
-        addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.done"),
+        addRenderableWidget(Button.builder(
+                        Component.translatable("gui.shadowmc_contenttweaker.block_billboard.done"),
                         b -> sendToServer())
-                .bounds(centerX - 50, urlY + 30, 100, 20)
+                .bounds(centerX - 50, buttonY, 100, 20)
                 .build());
 
         updateFields();
@@ -224,16 +255,7 @@ public class BlockBillboardScreen extends Screen {
         EditBox box = new EditBox(font, x, y, 60, 18, Component.empty());
         box.setMaxLength(20);
         box.setValue(formatFloat(value));
-
         return box;
-    }
-
-    private Button createButton(int x, int y, String text, Runnable action) {
-        return Button.builder(Component.literal(text), b -> {
-                    action.run();
-                })
-                .bounds(x, y, 20, 20)
-                .build();
     }
 
     @Override
@@ -248,18 +270,9 @@ public class BlockBillboardScreen extends Screen {
     }
 
     private void updateFields() {
-
-        if (!scaleBox.isFocused()) {
-            scaleBox.setValue(formatFloat(scale));
-        }
-
-        if (!offsetXBox.isFocused()) {
-            offsetXBox.setValue(formatFloat(offsetX));
-        }
-
-        if (!offsetYBox.isFocused()) {
-            offsetYBox.setValue(formatFloat(offsetY));
-        }
+        if (!scaleBox.isFocused()) scaleBox.setValue(formatFloat(scale));
+        if (!offsetXBox.isFocused()) offsetXBox.setValue(formatFloat(offsetX));
+        if (!offsetYBox.isFocused()) offsetYBox.setValue(formatFloat(offsetY));
 
         updateButtons();
         updatePreview();
@@ -280,51 +293,41 @@ public class BlockBillboardScreen extends Screen {
     }
 
     private void updateFromFields() {
-
         try {
             if (scaleBox.isFocused()) {
                 String val = normalize(scaleBox.getValue());
-                if (isValidNumber(val)) {
-                    scale = Float.parseFloat(val);
-                }
+                if (isValidNumber(val)) scale = Float.parseFloat(val);
             }
 
             if (offsetXBox.isFocused()) {
                 String val = normalize(offsetXBox.getValue());
-                if (isValidNumber(val)) {
-                    offsetX = Float.parseFloat(val);
-                }
+                if (isValidNumber(val)) offsetX = Float.parseFloat(val);
             }
 
             if (offsetYBox.isFocused()) {
                 String val = normalize(offsetYBox.getValue());
-                if (isValidNumber(val)) {
-                    offsetY = Float.parseFloat(val);
-                }
+                if (isValidNumber(val)) offsetY = Float.parseFloat(val);
             }
 
-        } catch (Exception ignored) {}
+        } catch (NumberFormatException ignored) {}
 
         scale = Math.max(SCALE_MIN, Math.min(SCALE_MAX, scale));
         offsetX = Math.max(OFFSET_MIN, Math.min(OFFSET_MAX, offsetX));
         offsetY = Math.max(OFFSET_MIN, Math.min(OFFSET_MAX, offsetY));
+
+        flipX = flipXBox.selected();
+        flipY = flipYBox.selected();
 
         updatePreview();
     }
 
     private String formatFloat(float value) {
         java.math.BigDecimal bd = new java.math.BigDecimal(Float.toString(value));
-
         bd = bd.setScale(4, java.math.RoundingMode.DOWN);
-
         bd = bd.stripTrailingZeros();
 
         String result = bd.toPlainString();
-
-        if (!result.contains(".")) {
-            result += ".0";
-        }
-
+        if (!result.contains(".")) result += ".0";
         return result;
     }
 
@@ -357,6 +360,8 @@ public class BlockBillboardScreen extends Screen {
         BlockBillboardRenderer.previewScale = scale;
         BlockBillboardRenderer.previewOffsetX = offsetX;
         BlockBillboardRenderer.previewOffsetY = offsetY;
+        BlockBillboardRenderer.previewFlipX = flipX;
+        BlockBillboardRenderer.previewFlipY = flipY;
     }
 
     private void sendToServer() {
@@ -369,7 +374,7 @@ public class BlockBillboardScreen extends Screen {
         String url = urlBox.getValue();
 
         ModNetworking.CHANNEL.sendToServer(
-                new BlockBillboardUpdatePacket(pos, scale, offsetX, offsetY, url)
+                new BlockBillboardUpdatePacket(pos, scale, offsetX, offsetY, url, flipX, flipY)
         );
     }
 

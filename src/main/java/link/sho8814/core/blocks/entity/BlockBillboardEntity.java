@@ -10,8 +10,12 @@ public class BlockBillboardEntity extends BlockEntity {
     private float offsetX = 0.0f;
     private float offsetY = 0.0f;
     private float offsetZ = 0.0f;
+
     private String texturePath = "block/block_billboard";
     private String imageUrl = "";
+
+    private boolean flipX = false;
+    private boolean flipY = false;
 
     public String getImageUrl() {
         return imageUrl;
@@ -53,12 +57,17 @@ public class BlockBillboardEntity extends BlockEntity {
         setChanged();
     }
 
-    public float getOffsetZ() {
-        return offsetZ;
+    public boolean isFlipX() {
+        return flipX;
     }
 
-    public void setOffsetZ(float offsetZ) {
-        this.offsetZ = offsetZ;
+    public boolean isFlipY() {
+        return flipY;
+    }
+
+    public void setFlip(boolean flipX, boolean flipY) {
+        this.flipX = flipX;
+        this.flipY = flipY;
         setChanged();
     }
 
@@ -88,6 +97,8 @@ public class BlockBillboardEntity extends BlockEntity {
         tag.putFloat("offsetZ", offsetZ);
         tag.putString("texture", texturePath);
         tag.putString("imageUrl", imageUrl);
+        tag.putBoolean("flipX", flipX);
+        tag.putBoolean("flipY", flipY);
     }
 
     @Override
@@ -100,6 +111,8 @@ public class BlockBillboardEntity extends BlockEntity {
         if (tag.contains("offsetZ")) offsetZ = tag.getFloat("offsetZ");
         if (tag.contains("texture")) texturePath = tag.getString("texture");
         if (tag.contains("imageUrl")) imageUrl = tag.getString("imageUrl");
+        if (tag.contains("flipX")) flipX = tag.getBoolean("flipX");
+        if (tag.contains("flipY")) flipY = tag.getBoolean("flipY");
     }
 
     @Override

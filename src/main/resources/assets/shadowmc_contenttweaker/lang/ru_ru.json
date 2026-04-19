@@ -32,18 +32,10 @@
 
   // Gui
     // Billboard
-  "gui.shadowmc_contenttweaker.block_billboard.namespace": "Настройки билборда",
-  "gui.shadowmc_contenttweaker.block_billboard.scale+": "Масштаб +",
-  "gui.shadowmc_contenttweaker.block_billboard.scale-": "Масштаб -",
-  "gui.shadowmc_contenttweaker.block_billboard.offsetX+": "Смещение X+",
-  "gui.shadowmc_contenttweaker.block_billboard.offsetX-": "Смещение X-",
-  "gui.shadowmc_contenttweaker.block_billboard.offsetY+": "Смещение Y+",
-  "gui.shadowmc_contenttweaker.block_billboard.offsetY-": "Смещение Y-",
-  "gui.shadowmc_contenttweaker.block_billboard.offsetZ+": "Смещение Z+",
-  "gui.shadowmc_contenttweaker.block_billboard.offsetZ-": "Смещение Z-",
+  "gui.shadowmc_contenttweaker.block_billboard.namespace": "Настройки Билборда",
+  "gui.shadowmc_contenttweaker.block_billboard.flipX": "Отразить по X",
+  "gui.shadowmc_contenttweaker.block_billboard.flipY": "Отразить по Y",
   "gui.shadowmc_contenttweaker.block_billboard.done": "Готово",
-  "gui.shadowmc_contenttweaker.block_billboard.url": "Введите ссылку",
-  "gui.shadowmc_contenttweaker.block_billboard.preview": "Предпросмотр",
 
   // Utils
   "util.shadowmc_contenttweaker.tooltip.press_shift": "Зажмите Shift"
