@@ -16,22 +16,22 @@ import net.minecraft.resources.ResourceLocation;
 
 public class BlockBillboardScreen extends Screen {
     private static final ResourceLocation FORWARD =
-            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_forward.png");
+            ResourceLocation.fromNamespaceAndPath("shadowmc_contenttweaker", "textures/gui/billboard/arrow_forward.png");
 
     private static final ResourceLocation FORWARD_HOVER =
-            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_forward_hover.png");
+            ResourceLocation.fromNamespaceAndPath("shadowmc_contenttweaker", "textures/gui/billboard/arrow_forward_hover.png");
 
     private static final ResourceLocation BACKWARD =
-            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_backward.png");
+            ResourceLocation.fromNamespaceAndPath("shadowmc_contenttweaker", "textures/gui/billboard/arrow_backward.png");
 
     private static final ResourceLocation BACKWARD_HOVER =
-            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_backward_hover.png");
+            ResourceLocation.fromNamespaceAndPath("shadowmc_contenttweaker", "textures/gui/billboard/arrow_backward_hover.png");
 
     private static final ResourceLocation FORWARD_DISABLED =
-            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_forward_disabled.png");
+            ResourceLocation.fromNamespaceAndPath("shadowmc_contenttweaker", "textures/gui/billboard/arrow_forward_disabled.png");
 
     private static final ResourceLocation BACKWARD_DISABLED =
-            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_backward_disabled.png");
+            ResourceLocation.fromNamespaceAndPath("shadowmc_contenttweaker", "textures/gui/billboard/arrow_backward_disabled.png");
 
     private static final float SCALE_MIN = 0f;
     private static final float SCALE_MAX = 32f;

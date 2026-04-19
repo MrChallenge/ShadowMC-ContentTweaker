@@ -8,7 +8,7 @@ public class ModNetworking {
     private static final String PROTOCOL_VERSION = "1";
 
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation("shadowmc_contenttweaker", "main"),
+            ResourceLocation.fromNamespaceAndPath("shadowmc_contenttweaker", "main"),
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals

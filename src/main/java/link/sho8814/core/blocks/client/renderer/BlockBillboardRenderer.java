@@ -84,7 +84,7 @@ public class BlockBillboardRenderer implements BlockEntityRenderer<BlockBillboar
             v1 = 1f;
 
         } else {
-            ResourceLocation blockTex = new ResourceLocation(
+            ResourceLocation blockTex = ResourceLocation.fromNamespaceAndPath(
                     "shadowmc_contenttweaker",
                     "block/block_billboard"
             );
