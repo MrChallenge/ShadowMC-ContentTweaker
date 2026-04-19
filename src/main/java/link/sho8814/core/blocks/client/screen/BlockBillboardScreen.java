@@ -14,8 +14,29 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class BlockBillboardScreen extends Screen {
-    private static final ResourceLocation BG =
-            new ResourceLocation("minecraft", "textures/gui/demo_background.png");
+    private static final ResourceLocation FORWARD =
+            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_forward.png");
+
+    private static final ResourceLocation FORWARD_HOVER =
+            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_forward_hover.png");
+
+    private static final ResourceLocation BACKWARD =
+            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_backward.png");
+
+    private static final ResourceLocation BACKWARD_HOVER =
+            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_backward_hover.png");
+
+    private static final ResourceLocation FORWARD_DISABLED =
+            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_forward_disabled.png");
+
+    private static final ResourceLocation BACKWARD_DISABLED =
+            new ResourceLocation("shadowmc_contenttweaker", "textures/gui/billboard/arrow_backward_disabled.png");
+
+    private static final float SCALE_MIN = 0f;
+    private static final float SCALE_MAX = 32f;
+
+    private static final float OFFSET_MIN = -32f;
+    private static final float OFFSET_MAX = 32f;
 
     private final BlockPos pos;
     private final BlockBillboardEntity entity;
@@ -29,6 +50,15 @@ public class BlockBillboardScreen extends Screen {
     private EditBox scaleBox;
     private EditBox offsetXBox;
     private EditBox offsetYBox;
+
+    private ArrowButtons scalePlus;
+    private ArrowButtons scaleMinus;
+
+    private ArrowButtons offsetXPlus;
+    private ArrowButtons offsetXMinus;
+
+    private ArrowButtons offsetYPlus;
+    private ArrowButtons offsetYMinus;
 
     private float scale = 1.0f;
     private float offsetX = 0.0f;
@@ -49,97 +79,277 @@ public class BlockBillboardScreen extends Screen {
 
     @Override
     protected void init() {
+        int centerX = width / 2;
+        int centerY = height / 2;
 
-        leftPos = (width - imageWidth) / 2;
-        topPos = (height - imageHeight) / 2;
+        int startY = centerY - 50;
+        int rowSpacing = 30;
 
-        int y = topPos + 30;
-        int spacing = 28;
+        int boxWidth = 60;
+        int boxHeight = 18;
 
-        // Scale
-        scaleBox = createBox(leftPos + 63, y, scale);
+        int arrowOffset = 50;
+        int arrowX = 14;
+        int arrowY = 22;
+        int arrowYOffset = (boxHeight - arrowY) / 2;
+
+        // ================= SCALE =================
+
+        int yScale = startY;
+
+        scaleBox = createBox(centerX - boxWidth / 2, yScale, scale);
         addRenderableWidget(scaleBox);
 
-        // -
-        addRenderableWidget(createButton(leftPos + 20, y, "-", () -> {
-            scale -= 0.25f;
-            updateFields();
-        }));
-
         // +
-        addRenderableWidget(createButton(leftPos + 140, y, "+", () -> {
-            scale += 0.25f;
-            updateFields();
-        }));
-
-        // Offset X
-        offsetXBox = createBox(leftPos + 63, y + spacing, offsetX);
-        addRenderableWidget(offsetXBox);
+        scalePlus = new ArrowButtons(
+                centerX + arrowOffset - arrowX / 2,
+                yScale + arrowYOffset,
+                arrowX, arrowY,
+                FORWARD, FORWARD_HOVER, FORWARD_DISABLED,
+                b -> {
+                    scale = Math.min(SCALE_MAX, scale + getStep());
+                    updateFields();
+                }
+        );
 
         // -
-        addRenderableWidget(createButton(leftPos + 20, y + spacing, "-", () -> {
-            offsetX -= 0.25f;
-            updateFields();
-        }));
+        scaleMinus = new ArrowButtons(
+                centerX - arrowOffset - arrowX / 2,
+                yScale + arrowYOffset,
+                arrowX, arrowY,
+                BACKWARD, BACKWARD_HOVER, BACKWARD_DISABLED,
+                b -> {
+                    scale = Math.max(SCALE_MIN, scale - getStep());
+                    updateFields();
+                }
+        );
 
-        // +
-        addRenderableWidget(createButton(leftPos + 140, y + spacing, "+", () -> {
-            offsetX += 0.25f;
-            updateFields();
-        }));
+        addRenderableWidget(scalePlus);
+        addRenderableWidget(scaleMinus);
 
-        // Offset Y
-        offsetYBox = createBox(leftPos + 63, y + spacing * 2, offsetY);
+        // ================= OFFSET Y =================
+
+        int yOffsetY = startY + rowSpacing;
+
+        offsetYBox = createBox(centerX - boxWidth / 2, yOffsetY, offsetY);
         addRenderableWidget(offsetYBox);
 
+        // +
+        offsetYPlus = new ArrowButtons(
+                centerX + arrowOffset - arrowX / 2,
+                yOffsetY + arrowYOffset,
+                arrowX, arrowY,
+                FORWARD, FORWARD_HOVER, FORWARD_DISABLED,
+                b -> {
+                    offsetY = Math.min(OFFSET_MAX, offsetY + getStep());
+                    updateFields();
+                }
+        );
+
         // -
-        addRenderableWidget(createButton(leftPos + 20, y + spacing * 2, "-", () -> {
-            offsetY -= 0.25f;
-            updateFields();
-        }));
+        offsetYMinus = new ArrowButtons(
+                centerX - arrowOffset - arrowX / 2,
+                yOffsetY + arrowYOffset,
+                arrowX, arrowY,
+                BACKWARD, BACKWARD_HOVER, BACKWARD_DISABLED,
+                b -> {
+                    offsetY = Math.max(OFFSET_MIN, offsetY - getStep());
+                    updateFields();
+                }
+        );
+
+        addRenderableWidget(offsetYPlus);
+        addRenderableWidget(offsetYMinus);
+
+        // ================= OFFSET X =================
+
+        int yOffsetX = startY + rowSpacing * 2;
+
+        offsetXBox = createBox(centerX - boxWidth / 2, yOffsetX, offsetX);
+        addRenderableWidget(offsetXBox);
 
         // +
-        addRenderableWidget(createButton(leftPos + 140, y + spacing * 2, "+", () -> {
-            offsetY += 0.25f;
-            updateFields();
-        }));
+        offsetXPlus = new ArrowButtons(
+                centerX + arrowOffset - arrowX / 2,
+                yOffsetX + arrowYOffset,
+                arrowX, arrowY,
+                FORWARD, FORWARD_HOVER, FORWARD_DISABLED,
+                b -> {
+                    offsetX = Math.min(OFFSET_MAX, offsetX + getStep());
+                    updateFields();
+                }
+        );
 
-        // URL
-        urlBox = new EditBox(font, leftPos + 20, topPos + 110, 136, 20,
+        // -
+        offsetXMinus = new ArrowButtons(
+                centerX - arrowOffset - arrowX / 2,
+                yOffsetX + arrowYOffset,
+                arrowX, arrowY,
+                BACKWARD, BACKWARD_HOVER, BACKWARD_DISABLED,
+                b -> {
+                    offsetX = Math.max(OFFSET_MIN, offsetX - getStep());
+                    updateFields();
+                }
+        );
+
+        addRenderableWidget(offsetXPlus);
+        addRenderableWidget(offsetXMinus);
+
+        // ================= URL =================
+
+        int urlY = startY + rowSpacing * 3 + 10;
+
+        urlBox = new EditBox(font,
+                centerX - 80,
+                urlY,
+                160,
+                20,
                 Component.translatable("gui.shadowmc_contenttweaker.block_billboard.url"));
 
         urlBox.setMaxLength(1024);
         urlBox.setValue(entity != null ? entity.getImageUrl() : "");
         addRenderableWidget(urlBox);
 
-        // Done
-        addRenderableWidget(Button.builder(
-                Component.translatable("gui.shadowmc_contenttweaker.block_billboard.done"),
-                b -> sendToServer()
-        ).bounds(leftPos + 40, topPos + 135, 100, 20).build());
+        // ================= DONE =================
+
+        addRenderableWidget(Button.builder(Component.translatable("gui.shadowmc_contenttweaker.block_billboard.done"),
+                        b -> sendToServer())
+                .bounds(centerX - 50, urlY + 30, 100, 20)
+                .build());
 
         updateFields();
     }
 
     private EditBox createBox(int x, int y, float value) {
-        EditBox box = new EditBox(font, x, y, 50, 18, Component.empty());
+        EditBox box = new EditBox(font, x, y, 60, 18, Component.empty());
         box.setMaxLength(20);
-        box.setValue(String.format("%.2f", value));
+        box.setValue(formatFloat(value));
+
         return box;
     }
 
     private Button createButton(int x, int y, String text, Runnable action) {
-        return Button.builder(Component.literal(text), b -> action.run())
+        return Button.builder(Component.literal(text), b -> {
+                    action.run();
+                })
                 .bounds(x, y, 20, 20)
                 .build();
     }
 
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        boolean result = super.mouseReleased(mouseX, mouseY, button);
+
+        if (this.getFocused() instanceof Button) {
+            this.setFocused(null);
+        }
+
+        return result;
+    }
+
     private void updateFields() {
-        scaleBox.setValue(String.format("%.2f", scale));
-        offsetXBox.setValue(String.format("%.2f", offsetX));
-        offsetYBox.setValue(String.format("%.2f", offsetY));
+
+        if (!scaleBox.isFocused()) {
+            scaleBox.setValue(formatFloat(scale));
+        }
+
+        if (!offsetXBox.isFocused()) {
+            offsetXBox.setValue(formatFloat(offsetX));
+        }
+
+        if (!offsetYBox.isFocused()) {
+            offsetYBox.setValue(formatFloat(offsetY));
+        }
+
+        updateButtons();
+        updatePreview();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        updateFromFields();
+    }
+
+    private String normalize(String input) {
+        return input.replace(",", ".");
+    }
+
+    private boolean isValidNumber(String s) {
+        return s.matches("-?\\d*(\\.\\d{0,4})?");
+    }
+
+    private void updateFromFields() {
+
+        try {
+            if (scaleBox.isFocused()) {
+                String val = normalize(scaleBox.getValue());
+                if (isValidNumber(val)) {
+                    scale = Float.parseFloat(val);
+                }
+            }
+
+            if (offsetXBox.isFocused()) {
+                String val = normalize(offsetXBox.getValue());
+                if (isValidNumber(val)) {
+                    offsetX = Float.parseFloat(val);
+                }
+            }
+
+            if (offsetYBox.isFocused()) {
+                String val = normalize(offsetYBox.getValue());
+                if (isValidNumber(val)) {
+                    offsetY = Float.parseFloat(val);
+                }
+            }
+
+        } catch (Exception ignored) {}
+
+        scale = Math.max(SCALE_MIN, Math.min(SCALE_MAX, scale));
+        offsetX = Math.max(OFFSET_MIN, Math.min(OFFSET_MAX, offsetX));
+        offsetY = Math.max(OFFSET_MIN, Math.min(OFFSET_MAX, offsetY));
 
         updatePreview();
+    }
+
+    private String formatFloat(float value) {
+        java.math.BigDecimal bd = new java.math.BigDecimal(Float.toString(value));
+
+        bd = bd.setScale(4, java.math.RoundingMode.DOWN);
+
+        bd = bd.stripTrailingZeros();
+
+        String result = bd.toPlainString();
+
+        if (!result.contains(".")) {
+            result += ".0";
+        }
+
+        return result;
+    }
+
+    private float getStep() {
+        boolean ctrl = hasControlDown();
+        boolean shift = hasShiftDown();
+        boolean alt = hasAltDown();
+
+        if (ctrl && shift && alt) return 0.0001f;
+        if (shift && ctrl) return 0.001f;
+        if (ctrl) return 0.01f;
+        if (shift) return 0.1f;
+        if (alt) return 10.0f;
+        return 1.0f;
+    }
+
+    private void updateButtons() {
+        scalePlus.active = scale < SCALE_MAX;
+        scaleMinus.active = scale > SCALE_MIN;
+
+        offsetXPlus.active = offsetX < OFFSET_MAX;
+        offsetXMinus.active = offsetX > OFFSET_MIN;
+
+        offsetYPlus.active = offsetY < OFFSET_MAX;
+        offsetYMinus.active = offsetY > OFFSET_MIN;
     }
 
     private void updatePreview() {
@@ -173,16 +383,14 @@ public class BlockBillboardScreen extends Screen {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(guiGraphics);
 
-        guiGraphics.blit(BG, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
 
         guiGraphics.drawCenteredString(
                 font,
                 Component.translatable("gui.shadowmc_contenttweaker.block_billboard.namespace"),
                 width / 2,
-                topPos + 10,
+                height / 2 - 70,
                 0xFFFFFF
         );
-
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
     }
 }
