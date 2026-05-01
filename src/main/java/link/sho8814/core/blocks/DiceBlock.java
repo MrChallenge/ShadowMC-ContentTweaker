@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.MapColor;
 
 public class DiceBlock extends Block {
-
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", 0, 3);
 

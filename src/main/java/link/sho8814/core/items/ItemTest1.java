@@ -17,8 +17,8 @@ public class ItemTest1 extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, world, tooltip, flag);
-        tooltip.add(Component.translatable("item.shadowmc_contenttweaker.item_test1.line1"));
-        tooltip.add(Component.translatable("item.shadowmc_contenttweaker.item_test1.line2"));
+        tooltip.add(Component.translatable("item.shadowmc_contenttweaker.item_test1.tooptip.line1"));
+        tooltip.add(Component.translatable("item.shadowmc_contenttweaker.item_test1.tooptip.line2"));
     }
 
     @Override

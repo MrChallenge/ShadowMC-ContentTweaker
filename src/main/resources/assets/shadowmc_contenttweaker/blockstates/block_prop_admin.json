@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "shadowmc_contenttweaker:block/block_prop_admin"
+    },
+    "facing=east": {
+      "model": "shadowmc_contenttweaker:block/block_prop_admin",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "shadowmc_contenttweaker:block/block_prop_admin",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "shadowmc_contenttweaker:block/block_prop_admin",
+      "y": 270
+    }
+  }
+}

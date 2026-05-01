@@ -23,10 +23,10 @@ public class BlockItemModelTest2 extends BlockItem {
 
         if (Screen.hasShiftDown()) {
             tooltip.add(Component.translatable("item.shadowmc_contenttweaker.model_test2.tooltip")
-                    .withStyle(ChatFormatting.GRAY));
+                    .withStyle(ChatFormatting.ITALIC, ChatFormatting.WHITE));
         } else {
             tooltip.add(Component.translatable("util.shadowmc_contenttweaker.tooltip.press_shift")
-                    .withStyle(ChatFormatting.GRAY));
+                    .withStyle(ChatFormatting.BOLD, ChatFormatting.GRAY));
         }
     }
 }

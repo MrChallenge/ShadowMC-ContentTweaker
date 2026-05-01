@@ -1,13 +1,19 @@
 {
+  // General
   "creative_tab.shadowmc_contenttweaker": "ShadowMC - ContentTweaker",
 
   // Items
+    // Test
   "item.shadowmc_contenttweaker.item_test0": "Item Test 0",
   "item.shadowmc_contenttweaker.item_test1": "Item Test 1",
   "item.shadowmc_contenttweaker.item_test2": "Item Test 2",
   "item.shadowmc_contenttweaker.item_test3": "Item Test 3",
 
+    // All
+  "item.shadowmc_contenttweaker.admin_sword": "Admin Sword",
+
   // Blocks
+    // Test
   "block.shadowmc_contenttweaker.block_test0": "Block Test 0",
   "block.shadowmc_contenttweaker.block_test1": "Block Test 1",
   "block.shadowmc_contenttweaker.block_test2": "Block Test 2",
@@ -15,20 +21,24 @@
   "block.shadowmc_contenttweaker.block_test4": "Block Test 4",
   "block.shadowmc_contenttweaker.block_test5": "Block Test 5",
   "block.shadowmc_contenttweaker.block_test6": "Block Test 6",
-  "block.shadowmc_contenttweaker.block_billboard": "Block Billboard",
 
   "block.shadowmc_contenttweaker.model_test1": "Model Test 1",
   "block.shadowmc_contenttweaker.model_test2": "Model Test 2",
 
+    // All
   "block.shadowmc_contenttweaker.dice_block": "Dice Block",
+  "block.shadowmc_contenttweaker.block_billboard": "Block Billboard",
+  "block.shadowmc_contenttweaker.block_prop_admin": "Admin Prop",
 
   // Tooltips
-  "item.shadowmc_contenttweaker.item_test1.line1": "<line 1>",
-  "item.shadowmc_contenttweaker.item_test1.line2": "<line 2>",
+  "item.shadowmc_contenttweaker.item_test1.tooptip.line1": "<line 1>",
+  "item.shadowmc_contenttweaker.item_test1.tooptip.line2": "<line 2>",
 
   "item.shadowmc_contenttweaker.dice_block.tooltip": "Randomized sides! (╯‵□′)╯︵┻━┻",
 
   "item.shadowmc_contenttweaker.model_test2.tooltip": "<tooltip>",
+
+  "item.shadowmc_contenttweaker.block_prop_admin.tooltip": "<tooltip>",
 
   // Gui
     // Billboard

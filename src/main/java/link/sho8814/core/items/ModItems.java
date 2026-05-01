@@ -14,10 +14,14 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, ShadowMC_ContentTweaker.MODID);
 
     // Items
+        // Test
     public static final RegistryObject<Item> ITEM_TEST0 = ITEMS.register("test/item_test0", ItemTest0::new);
     public static final RegistryObject<Item> ITEM_TEST1 = ITEMS.register("test/item_test1", ItemTest1::new);
     public static final RegistryObject<Item> ITEM_TEST2 = ITEMS.register("test/item_test2", ItemTest2::new);
     public static final RegistryObject<Item> ITEM_TEST3 = ITEMS.register("test/item_test3", ItemTest3::new);
+
+        // All
+    public static final RegistryObject<Item> ADMIN_SWORD = ITEMS.register("admin_sword", ItemAdminSword::new);
 
     // Block-items
         // Test
@@ -48,12 +52,15 @@ public class ModItems {
     public static final RegistryObject<Item> MODEL_TEST2 = ITEMS.register("test/model_test2",
             () -> new BlockItemModelTest2(ModBlocks.MODEL_TEST2.get()));
 
-    public static final RegistryObject<Item> DICE_BLOCK = ITEMS.register("test/dice_block",
+        // All
+    public static final RegistryObject<Item> DICE_BLOCK = ITEMS.register("dice_block",
             () -> new BlockItemDiceBlock(ModBlocks.DICE_BLOCK.get()));
 
-        // All
     public static final RegistryObject<Item> BLOCK_BILLBOARD = ITEMS.register("block_billboard",
             ()  -> new BlockItem(ModBlocks.BLOCK_BILLBOARD.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> BLOCK_PROP_ADMIN = ITEMS.register("block_prop_admin",
+            () -> new BlockItemPropAdmin(ModBlocks.BLOCK_PROP_ADMIN.get()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
