@@ -21,6 +21,7 @@ public class ModNetworking {
                 BlockBillboardUpdatePacket.class,
                 BlockBillboardUpdatePacket::encode,
                 BlockBillboardUpdatePacket::decode,
-                BlockBillboardUpdatePacket::handle);
+                BlockBillboardUpdatePacket::handle
+        );
     }
 }

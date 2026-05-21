@@ -5,6 +5,6 @@ Specification-Version: 1
 Implementation-Title: shadowmc-contenttweaker
 Implementation-Version: 1.0.0
 Implementation-Vendor: SHO8814
-Implementation-Timestamp: 2026-04-29T00:55:50+0300
+Implementation-Timestamp: 2026-05-01T22:51:12+0300
 MixinConfigs: shadowmc_contenttweaker.mixins.json
 
